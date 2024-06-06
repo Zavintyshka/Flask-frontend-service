@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная Страница</title>
+</head>
+<body>
+<h1>Media Converter App</h1>
+<h2>Добро Пожаловать в Meda Converter. Данное приложение умеет работать с видео, звуком и изображениями.</h2>
+{% if user %}
+<h4><a href="{{ url_for('account_view') }}">Привет, {{ user.username }}</a></h4>
+{% else %}
+<h4><a href="{{ url_for('login_view') }}">Вход</a> | <a href="{{ url_for('registration_view') }}">Регистрация</a></h4>
+{% endif %}
+</body>
+</html>
