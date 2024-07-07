@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+<body>
+{% if user %}
+<h2>Ваша информация</h2>
+<ul>
+    {% for key,value in user.items() %}
+    <li>{{ key }} -- {{ value }}</li>
+    {% endfor%}
+</ul>
+<br>
+<h2><a href=" {{ url_for('user.logout_view') }} ">Выйти</a></h2>
+{% else %}
+<h2>Для того чтобы просматривать свой личный кабинет, нужно авторизоваться.</h2>
+<a href="{{ url_for('user.login_view')}}">Вход</a>
+{% endif %}
+</body>
+</html>
