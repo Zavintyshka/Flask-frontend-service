@@ -35,3 +35,8 @@ def index_post():
             return cookie_response
         case _:
             return redirect(url_for("user.error_view"))
+
+
+@index_blueprint.get("/about")
+def about_page():
+    return render_template("index/about.html")
