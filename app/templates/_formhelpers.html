@@ -1,0 +1,10 @@
+{% macro render_field(field) %}
+    <div class="personal_data__field">
+        <div class="field__title">
+            <h1>{{ field.label }}</h1>
+        </div>
+        <div class="field__input">
+            {{ field(**kwargs) }}
+        </div>
+    </div>
+{% endmacro %}

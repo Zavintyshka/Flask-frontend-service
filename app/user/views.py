@@ -42,7 +42,7 @@ def error_view():
 
 @user_blueprint.get("/user-profile/not-authorized/")
 def not_authorized_view():
-    return render_template("errors/not_authorized.html")
+    return render_template("errors/not_authorized.html"), 401
 
 
 @user_blueprint.get("/login/logout/")
