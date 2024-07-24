@@ -11,6 +11,8 @@ def middleware(app):
         if not user_jwt_token:
             g.user = {"user": None}
             return
+        if "static" in request.url:
+            return
         url = settings.API_GATEWAY_URL + "/user/account/"
         header = {"Authorization": f"Bearer {user_jwt_token}"}
         response = requests.get(url, headers=header)
@@ -21,4 +23,3 @@ def middleware(app):
         else:
             g.user = {"user": None}
             print("Доступа нет")
-
