@@ -117,7 +117,7 @@ header {
 }
 
 
-.wrapper{
+.wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,18 +128,18 @@ header {
     height: 100%;
 }
 
-.wrapper__user_block{
+.wrapper__user_block {
     display: flex;
     justify-content: space-between;
     width: 2000px;
     height: 900px;
-    gap:15px;
+    gap: 15px;
 }
 
-.user_block__user_card{
+.user_block__user_card {
     display: flex;
     flex-direction: column;
-    gap:30px;
+    gap: 30px;
     justify-content: space-between;
     height: 100%;
     padding: 50px;
@@ -147,8 +147,7 @@ header {
 }
 
 
-
-.user_block__user_card, .user_block{
+.user_block__user_card, .user_block {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(2px);
@@ -158,13 +157,13 @@ header {
 }
 
 
-.user_card__user_info{
+.user_card__user_info {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.user_card__avatar{
+.user_card__avatar {
     position: relative;
     background-color: white;
     margin: 0 auto;
@@ -175,28 +174,28 @@ header {
     border: 3px solid var(--main);
 }
 
-.user_card__avatar img{
+.user_card__avatar img {
     width: 100%;
     height: 100%;
     border-radius: 49%;
 }
 
-.user_name__firstname, .user_name__secondname{
+.user_name__firstname, .user_name__secondname {
     text-align: center;
     font-size: 45px;
     letter-spacing: 5px;
     text-transform: capitalize;
 }
 
-.user-info__change_avatar_button{
+.user-info__change_avatar_button {
     margin-bottom: 30px;
     width: 50%;
     font-size: 20px;
     padding: 10px;
-    
+
 }
 
-.user-info__change_avatar_button, .personal_data__update_button,.user_block__change_user_data{
+.user-info__change_avatar_button, .personal_data__update_button, .user_block__change_user_data {
     color: white;
     outline: none;
     border: 1px solid var(--main-color);
@@ -208,14 +207,13 @@ header {
 }
 
 
-
-.user-info__change_avatar_button:hover, .personal_data__update_button:hover,.user_block__change_user_data:hover{
+.user-info__change_avatar_button:hover, .personal_data__update_button:hover, .user_block__change_user_data:hover {
     background-color: white;
     color: var(--main-color)
 }
 
 
-.user_achivements__title{
+.user_achivements__title {
     text-align: center;
     font-size: 40px;
     letter-spacing: 2px;
@@ -223,23 +221,23 @@ header {
 }
 
 
-.user_achivements__wrapper_for_achivements{
+.user_achivements__wrapper_for_achivements {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px 0;
     text-align: center;
-    width: 100%;    
+    width: 100%;
 }
 
 
 /* Personal Data Block */
 
-.user_block{
+.user_block {
     width: 100%;
     height: 100%;
 }
 
-.user_block__personal_data{
+.user_block__personal_data {
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -248,7 +246,7 @@ header {
 }
 
 
-.personal_data__field{
+.personal_data__field {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -256,7 +254,23 @@ header {
     justify-content: space-between;
 }
 
-.field__title h1{
+
+.field__input {
+    position: relative;
+}
+
+.field__errors {
+    position: absolute;
+    top: 45px;
+    left: 15px;
+}
+
+.field__errors li {
+    color: var(--additional-color);
+    font-size: 14px;
+}
+
+.field__title h1 {
     text-align: right;
     width: 150px;
     text-transform: capitalize;
@@ -264,12 +278,12 @@ header {
     font-weight: 300;
 }
 
-.field__input,.field__input input{
+.field__input, .field__input input {
     width: 100%;
     border-radius: 10px;
 }
 
-.field__input input{
+.field__input input {
     height: 40px;
     background-color: transparent;
     border: 1px solid var(--main-color);
@@ -277,19 +291,19 @@ header {
     padding-left: 20px;
 }
 
-.field__button button{
+.field__button button {
     height: 40px;
     width: 150px;
     background-color: black;
     border: 1px solid var(--main-color);
     border-radius: 10px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.personal_data__update_button{
+.personal_data__update_button {
     display: none;
 }
 
-.user_block__change_password_title{
+.user_block__change_password_title {
     text-align: center;
 }
