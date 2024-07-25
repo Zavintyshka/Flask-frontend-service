@@ -32,17 +32,24 @@ def user_profile_view():
 
 @user_blueprint.get("/registration/success_registration/")
 def success_registration_view():
-    return render_template("user/success_registration.html")
+    return render_template("user/success_registration.html", message="Success Registration :)")
+
+
+@user_blueprint.get("/login/error/")
+def wrong_credentials_view():
+    return render_template("errors/standard_error_page.html",
+                           message="Incorrect password or login. Try again.")
 
 
 @user_blueprint.get("/registration/error/")
-def error_view():
-    return render_template("user/some_errors.html")
-
+def incorrect_registration_data_view():
+    return render_template("errors/standard_error_page.html",
+                           message="Some of your data was incorrect while registration process. Please try again.")
 
 @user_blueprint.get("/user-profile/not-authorized/")
 def not_authorized_view():
-    return render_template("errors/not_authorized.html"), 401
+    return render_template("errors/standard_error_page.html",
+                           message="You need to be authorized to view this page."), 401
 
 
 @user_blueprint.get("/login/logout/")

@@ -8,4 +8,4 @@ app = create_app()
 def page_not_found(e):
     print(request.url)
     print(e)
-    return render_template("errors/page_not_found.html"), 404
+    return render_template("errors/standard_error_page.html", message="Page not Found. 404"), 404

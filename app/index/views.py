@@ -26,15 +26,16 @@ def index_post():
 
     match response.status_code:
         case 201:
-            print("Создана учетная запись")
             return redirect(url_for("user.success_registration_view"))
         case 200:
             jwt_token = response.json()["access_token"]
             cookie_response = make_response(redirect(url_for("index.index_get")))
             cookie_response.set_cookie('jwt_token', jwt_token, httponly=True)
             return cookie_response
-        case _:
-            return redirect(url_for("user.error_view"))
+        case 404 | 403:
+            return redirect(url_for("user.wrong_credentials_view"))
+        case 409:
+            return redirect(url_for("user.incorrect_registration_data_view"))
 
 
 @index_blueprint.get("/about")

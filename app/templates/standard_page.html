@@ -12,8 +12,8 @@
     <div class="wrapper" style="background-image: url({{ url_for('static', filename="images/background.jpg")}})">
         <div class="wrapper_error_box">
             <p id="wrapper__error_message">
-                {% block error_message %}
-                Base Error Template
+                {% block message %}
+                Base Message
                 {% endblock %}
             </p>
             <a id="wrapper__go_to_home_link" href="/">Return to Home page</a>
