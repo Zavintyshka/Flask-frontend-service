@@ -18,12 +18,12 @@ def user_profile_view():
     filled_form = UserDataForm(**user_data)
     match request.method:
         case "GET":
-            return render_template("user/user-profile.html", form=filled_form, user=user_data)
+            return render_template("user/user_profile.html", form=filled_form, user=user_data)
         case "POST":
             user_data_form = UserDataForm(request.form)
 
             if not user_data_form.validate():
-                return render_template("user/user-profile.html", form=user_data_form, user=user_data)
+                return render_template("user/user_profile.html", form=user_data_form, user=user_data)
 
             user_data_json = user_data_form.data
             del user_data_json["registered_at"]
@@ -33,6 +33,20 @@ def user_profile_view():
             header = {"Authorization": f"Bearer {jwt_token}"}
             requests.put(url, headers=header, json=user_data_json)
             return redirect(url_for("user.user_profile_view"))
+
+
+@user_blueprint.get("/<string:username>/my-files/")
+def user_files_view(username: str):
+    user_data = g.user["user"]
+
+    if not user_data or not user_data["username"] == username:
+        return redirect(url_for("user.not_authorized_view"))
+
+    url = f"{settings.API_GATEWAY_URL}/video/pairs_list"
+    jwt_token = request.cookies["jwt_token"]
+    header = {"Authorization": f"Bearer {jwt_token}"}
+    action_list = requests.get(url, headers=header).json()
+    return render_template("user/user_files.html", action_list=action_list, user=user_data)
 
 
 @user_blueprint.get("/registration/success_registration/")

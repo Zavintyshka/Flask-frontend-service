@@ -1,0 +1,21 @@
+{% extends "base_pages/base.html" %}
+
+{% block title %} My Files {% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_files_style.css') }}">
+{% endblock%}
+
+
+
+{% block content %}
+<div class="wrapper" style="background-image: url({{ url_for('static', filename='images/background.png')}})">
+    <div class="content">
+        <h1 class="content__title">My Files</h1>
+        {% from "_helper.html" import render_actions %}
+        {{ render_actions(action_list) }}
+    </div>
+</div>
+{% endblock %}
+

@@ -1,197 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resident Evil 2</title>
-    <!-- css-->
-    <link rel="stylesheet" href=" {{ url_for('static', filename='index_style.css') }}">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='index_second_page_style.css') }}">
+{% extends "base_pages/base.html" %}
 
+{% block title%}
+MediaConverter
+{% endblock %}
 
-    <!-- fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
-    <!-- icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
-    <header>
-        <div class="main_header">Media Converter</div>
-        <nav class="navigation">
-            <a href="/">Home</a>
-            <a href="{{ url_for('index.about_page') }}">About</a>
-            <a href="/">Services</a>
-            {% if user %}
-            <a href="{{ url_for('user.user_profile_view') }}">{{user.username}}</a>
-            <a href="{{url_for('user.logout_view')}}">Logout</a>
-            {% else %}
-            <button id="popup_login_btn">Login</button>
-            {% endif %}
-        </nav>
-        <div class="logo">
-            <a href="https://game.capcom.com/residentevil/en/" target="_blank">
-                <img id="resident_evil_logo" src="{{ url_for('static', filename='images/resident_evil2_logo.png')}}" alt="Resident Evil 2 Logo">
-            </a>
-        </div>
-    </header>
-    <div class="first_page">
-        <div class="layers">
-            <div class="layers layer_back" style="background-image: url({{ url_for('static', filename='images/back.png')}})"></div>
-            <div class="layers layer_middle" style="background-image: url({{ url_for('static', filename='images/middle.png')}})"></div>
-            <div class="layers layer_front" style="background-image: url({{ url_for('static', filename='images/front.png')}})"></div>
-        </div>
+{% block css %}
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/index_style.css') }}">
+{% endblock %}
 
-        <div class="wrapper_box">
-            <div class="wrapper_inner">
-                <div id="close_popup_login_menu_box">
-                    <button id="close_popup_menu_btn">✕</button>
-                </div>
+{% block js %}
+<script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+{% endblock %}
 
-                <div class="login_form_box">
-                    <h1 class="form_header">Login</h1>
-                    <form action="" method="post">
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-user'></i>
-                            </span>
-                            <input type="text" name="username" required>
-                            <label for="username">Username</label>
-                        </div>
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-lock-alt' ></i>
-                            </span>
-                            <input type="password" name="password" required>
-                            <label for="password">Password</label>
-                        </div>
-                        <div class="remember_forgot_box">
-                            <div id="remember_box">
-                                <input class="checkbox" type="checkbox" name="remember_me">
-                                <label for="remember_me">Remember me</label>
-                            </div>
-                            <a>Forgot password?</a>
-                        </div>
-                        <button class="submit_btn">Login</button>
-                        <div class="register_box">
-                            <p>Don't have an account? <a id="register_link">Register</a></p>
-                        </div>
-                    </form>
-                </div>
+{% block content %}
+<div class="first_page">
+    <div class="layers">
+        <div class="layers layer_back"
+             style="background-image: url({{ url_for('static', filename='images/back.png')}})"></div>
+        <div class="layers layer_middle"
+             style="background-image: url({{ url_for('static', filename='images/middle.png')}})"></div>
+        <div class="layers layer_front"
+             style="background-image: url({{ url_for('static', filename='images/front.png')}})"></div>
+    </div>
 
-                <div class="register_form_box">
-                    <h1 class="form_header">Registration</h1>
-                    <form action="" method="post">
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bx-user-circle' ></i>
-                            </span>
-                            <input type="text" name="firstname" required>
-                            <label for="firstname">Firstname</label>
-                        </div>
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bx-user-circle' ></i>
-                            </span>
-                            <input type="text" name="lastname" required>
-                            <label for="lastname">Lastname</label>
-                        </div>
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-user'></i>
-                            </span>
-                            <input type="text" name="username" required>
-                            <label for="username">Username</label>
-                        </div>
+    <div class="wrapper_box">
+        <div class="wrapper_inner">
+            <div id="close_popup_login_menu_box">
+                <button id="close_popup_menu_btn">✕</button>
+            </div>
 
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-envelope'></i>
-                            </span>
-                            <input type="email" name="email" required>
-                            <label for="email">E-mail</label>
-                        </div>
-
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-lock-alt' ></i>
-                            </span>
-                            <input type="password" name="password" required>
-                            <label for="password">Password</label>
-                        </div>
-
-                        <div class="input_box">
-                            <span class="icon">
-                                <i class='bx bxs-lock-alt' ></i>
-                            </span>
-                            <input type="password" name="second_password" required>
-                            <label for="second_password">Repeat Password</label>
-                        </div>
-
-                        <div class="terms_box">
+            <div class="login_form_box">
+                <h1 class="form_header">Login</h1>
+                <form action="" method="post">
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-user'></i>
+                    </span>
+                        <input type="text" name="username" required>
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-lock-alt'></i>
+                    </span>
+                        <input type="password" name="password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="remember_forgot_box">
+                        <div id="remember_box">
                             <input class="checkbox" type="checkbox" name="remember_me">
-                            <label for="remember_me">I agree to the terms & conditions</label>
+                            <label for="remember_me">Remember me</label>
                         </div>
-                        <button class="submit_btn">Register</button>
-                        <div class="register_box">
-                            <p>Already have an account? <a id="login_link">Login</a></p>
-                        </div>
-                    </form>
-                </div>
+                        <a>Forgot password?</a>
+                    </div>
+                    <button class="submit_btn">Login</button>
+                    <div class="register_box">
+                        <p>Don't have an account? <a id="register_link">Register</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="register_form_box">
+                <h1 class="form_header">Registration</h1>
+                <form action="" method="post">
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bx-user-circle'></i>
+                    </span>
+                        <input type="text" name="firstname" required>
+                        <label for="firstname">Firstname</label>
+                    </div>
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bx-user-circle'></i>
+                    </span>
+                        <input type="text" name="lastname" required>
+                        <label for="lastname">Lastname</label>
+                    </div>
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-user'></i>
+                    </span>
+                        <input type="text" name="username" required>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-envelope'></i>
+                    </span>
+                        <input type="email" name="email" required>
+                        <label for="email">E-mail</label>
+                    </div>
+
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-lock-alt'></i>
+                    </span>
+                        <input type="password" name="password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div class="input_box">
+                    <span class="icon">
+                        <i class='bx bxs-lock-alt'></i>
+                    </span>
+                        <input type="password" name="second_password" required>
+                        <label for="second_password">Repeat Password</label>
+                    </div>
+
+                    <div class="terms_box">
+                        <input class="checkbox" type="checkbox" name="remember_me">
+                        <label for="remember_me">I agree to the terms & conditions</label>
+                    </div>
+                    <button class="submit_btn">Register</button>
+                    <div class="register_box">
+                        <p>Already have an account? <a id="login_link">Login</a></p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-    <div class="second_page">
-            <div class="content_box">
-                <div class="information_card video_box">
-                    <h1>Video Converter</h1>
-                    <div class="card_image ada">
-                        <img src="/static/images/ada.jpg" alt="">
-                    </div>
-                    <div class="information_list">
-                        <ul>
-                            <li>Making GIF file from video;</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                        </ul>
-                    </div>
-                    <button class="serice_buttons video_button">Video Editor</button>
-                </div>
-                <div class="information_card image_box">
-                    <h1>Image Converter</h1>
-                    <div class="card_image leon">
-                        <img src="/static/images/leon.jpeg" alt="">
-                    </div>
-                    <div class="information_list">
-                        <ul>
-                            <li>Making PDF file from several images;</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                        </ul>
-                    </div>
-                    <button class="serice_buttons image_button">Image Editor</button>
-                </div>
-                <div class="information_card audio_box">
-                    <h1>Audio Converter</h1>
-                    <div class="card_image ashley">
-                        <img src="/static/images/ashley.jpg" alt="">
-                    </div>
-                    <div class="information_list">
-                        <ul>
-                            <li>Converting to different formats;</li>
-                            <li>Audio slicing;</li>
-                            <li>Extracting audio tracs from video files.</li>
-                        </ul>
-                    </div>
-                    <button class="serice_buttons audio_button">Audio Editor</button>
-                </div>
+</div>
+<div class="second_page" style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
+    <div class="content_box">
+        <div class="information_card video_box">
+            <h1>Video Converter</h1>
+            <div class="card_image ada">
+                <img src="/static/images/ada.jpg" alt="">
             </div>
-            <div class="copyright_box">
-                <h2>© Vadim Sosnin 2024. All Right Reserved.</h2>
+            <div class="information_list">
+                <ul>
+                    <li>Making GIF file from video;</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                </ul>
             </div>
+            <button class="serice_buttons video_button">Video Editor</button>
         </div>
-</body>
-</html>
+        <div class="information_card image_box">
+            <h1>Image Converter</h1>
+            <div class="card_image leon">
+                <img src="/static/images/leon.jpeg" alt="">
+            </div>
+            <div class="information_list">
+                <ul>
+                    <li>Making PDF file from several images;</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                </ul>
+            </div>
+            <button class="serice_buttons image_button">Image Editor</button>
+        </div>
+        <div class="information_card audio_box">
+            <h1>Audio Converter</h1>
+            <div class="card_image ashley">
+                <img src="/static/images/ashley.jpg" alt="">
+            </div>
+            <div class="information_list">
+                <ul>
+                    <li>Converting to different formats;</li>
+                    <li>Audio slicing;</li>
+                    <li>Extracting audio tracs from video files.</li>
+                </ul>
+            </div>
+            <button class="serice_buttons audio_button">Audio Editor</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

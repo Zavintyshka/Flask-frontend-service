@@ -1,0 +1,63 @@
+{% macro render_field(field) %}
+<div class="personal_data__field">
+    <div class="field__title">
+        <h1>{{ field.label }}</h1>
+    </div>
+    <div class="field__input">
+        {{ field(**kwargs) }}
+        {% if field.errors %}
+        <ul class="field__errors">
+            {% for error in field.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_actions(action_list) %}
+{% for action in action_list %}
+<div class="content__converting_block">
+    <div class="converting_block__row_part">
+        <div class="part_preview">
+            <i class='bx bxs-video'></i>
+        </div>
+        <div class="part_filename">
+            <h4>{{action.raw_filename}}</h4>
+        </div>
+        <div class="part_file_type_wrapper">
+            <p>{{action.raw_file_extension}}</p>
+        </div>
+        <div class="part_download_link">
+            <button class="download_button">Download</button>
+        </div>
+    </div>
+
+    <div class="converting_block__transition">
+        <i class='bx bx-right-arrow-alt'></i>
+    </div>
+
+    <div class="converting_block__converted_part">
+        {% if action.converted_filename %}
+        <div class="part_preview">
+            <i class='bx bxs-music'></i>
+        </div>
+        <div class="part_filename">
+            <h4>{{action.converted_filename}}</h4>
+        </div>
+        <div class="part_file_type_wrapper">
+            <p>{{action.converted_file_extension}}</p>
+        </div>
+        <div class="part_download_link">
+            <button class="download_button">Download</button>
+        </div>
+        {% else %}
+        <i class='bx bx-cog converted_part__gear' ></i>
+        <p class="converted_part__info">The file is being processed, please wait.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor%}
+{% endmacro %}
