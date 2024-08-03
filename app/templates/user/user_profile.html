@@ -1,5 +1,5 @@
 {% extends "base_pages/base.html" %}
-
+{% from "_helper.html" import render_achievement_block %}
 {% block title %} Profile {% endblock %}
 
 
@@ -7,69 +7,67 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile_style.css') }}">
 {% endblock%}
 
+{% block js %}
+<script src="{{ url_for('static', filename='js/user_profile.js') }}" defer></script>
+{% endblock%}
+
 
 {% block content %}
-<div class="wrapper" style="background-image: url({{ url_for('static', filename='images/background.png')}})">
-<div class="wrapper__user_block">
-    <div class="user_block__user_card">
-        <div class="user_card__user_info">
-            <div class="user_card__avatar">
-                <img src="./images/avatar_default.svg" alt="">
-            </div>
-            <button class="user-info__change_avatar_button">Change Avatar</button>
-            <div class="user_card__user_name">
-                <h1 class="user_name__firstname">{{user.firstname}}</h1>
-                <h1 class="user_name__secondname">{{user.lastname}}</h1>
+<div class="wrapper_background" style="background-image: url({{ url_for('static', filename='images/background.png')}})">
+    <div class="wrapper_user_profile">
+        <h1 class="user_profile__title">
+            My Profile
+        </h1>
+
+        <div class="user_profile__content">
+
+
+            <h1 class="content__name_avatar_block__title block_title">{{ user.username}}'s Profile</h1>
+            <div class="content__name_avatar_block block">
+                <img class="name_avatar_block__avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}"
+                     alt="avatar">
+                <h1 class="name_avatar_block__name">{{ user.firstname }} {{ user.lastname }}</h1>
+                <button class="button">Change Avatar</button>
             </div>
 
-        </div>
-        <div class="user_card__user_achivements">
-            <h1 class="user_achivements__title">Achievements</h1>
-            <div class="user_achivements__wrapper_for_achivements">
-                <h1 class="user_achivements__video_achivement">X</h1>
-                <h1 class="user_achivements__audio_achivement">X</h1>
-                <h1 class="user_achivements__image_achivement">X</h1>
-                <h1 class="user_achivements__video_achivement">X</h1>
-                <h1 class="user_achivements__audio_achivement">X</h1>
-                <h1 class="user_achivements__image_achivement">X</h1>
-                <h1 class="user_achivements__video_achivement">X</h1>
-                <h1 class="user_achivements__audio_achivement">X</h1>
-                <h1 class="user_achivements__image_achivement">X</h1>
 
+            <h1 class="content__user_achievements__title block_title">Achievements</h1>
+            <div class="content__user_achievements block">
+                <div class="user_achievements__video_service service_achievement_block">
+                    <h4 class="user_achievements__title">Video</h4>
+                    {{render_achievement_block(achievement_list_video)}}
+                </div>
+
+                <div class="user_achievements__audio_service service_achievement_block">
+                    <h4 class="user_achievements__title">Audio</h4>
+                    {{render_achievement_block(achievement_list_audio)}}
+                </div>
+
+                <div class="user_achievements__image_service service_achievement_block">
+                    <h4 class="user_achievements__title">Image</h4>
+                    {{render_achievement_block(achievement_list_image)}}
+                </div>
+            </div>
+
+
+
+            <h1 class="content__name_avatar_block__title block_title"> {{ user.username}}'s Info</h1>
+            <div class="content__user_credentials block">
+                <form method="post" class="user_block__personal_data">
+                    {% from "_helper.html" import render_field %}
+                    {{ render_field(form.firstname) }}
+                    {{ render_field(form.lastname) }}
+                    {{ render_field(form.username) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.registered_at) }}
+                    <button type="submit" class="button">Change My Data</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <div class="user_block">
-        <form method="post" class="user_block__personal_data">
-            {% from "_helper.html" import render_field %}
-            {{ render_field(form.firstname) }}
-            {{ render_field(form.lastname) }}
-            {{ render_field(form.username) }}
-            {{ render_field(form.email) }}
-            {{ render_field(form.registered_at) }}
-            <button type="submit" class="user_block__change_user_data">Change My Data</button>
-        </form>
-        <h1 class="user_block__change_password_title">Do you want to change password?</h1>
-        <form class="user_block__personal_data">
-            <div class="personal_data__field">
-                <div class="field__title">
-                    <h1>Current Password:</h1>
-                </div>
-                <div class="field__input">
-                    <input type="password">
-                </div>
-            </div>
-            <div class="personal_data__field">
-                <div class="field__title">
-                    <h1>New Password:</h1>
-                </div>
-                <div class="field__input">
-                    <input type="password">
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 </div>
 {% endblock %}
+
+
+wrapper -> wrapper_background
+wrapper__user_block -> wrapper_user_profile

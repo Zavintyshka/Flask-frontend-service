@@ -16,9 +16,34 @@ def user_profile_view():
 
     user_data["registered_at"] = beautify_date(user_data["registered_at"])
     filled_form = UserDataForm(**user_data)
+
+    url = f"{settings.API_GATEWAY_URL}/user/achievement/"
+    jwt_token = request.cookies["jwt_token"]
+    header = {"Authorization": f"Bearer {jwt_token}"}
+    achievement_list = requests.get(url, headers=header).json()
+
+    achievement_list_video = []
+    achievement_list_image = []
+    achievement_list_audio = []
+
+    for achievement in achievement_list:
+        service_type = achievement["service"]
+        match service_type:
+            case "video":
+                achievement_list_video.append(achievement)
+            case "image":
+                achievement_list_image.append(achievement)
+            case "audio":
+                achievement_list_audio.append(achievement)
+
     match request.method:
         case "GET":
-            return render_template("user/user_profile.html", form=filled_form, user=user_data)
+            return render_template("user/user_profile.html",
+                                   form=filled_form,
+                                   user=user_data,
+                                   achievement_list_video=achievement_list_video,
+                                   achievement_list_image=achievement_list_image,
+                                   achievement_list_audio=achievement_list_audio)
         case "POST":
             user_data_form = UserDataForm(request.form)
 

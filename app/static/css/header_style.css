@@ -16,12 +16,9 @@ header {
     align-items: center;
     width: 100%;
     padding: calc(var(--index) * 0.5) calc(var(--index) * 2);
-    background-color: transparent;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 3px solid black;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    background-color:black;
     font-size: calc(var(--index) * 0.5);
 }
 

@@ -15,203 +15,192 @@ a {
     --additional-color: rgb(128, 0, 23);
 }
 
-body {
-    width: 100vw;
-    height: 100vh;
-    background-color: darkgray;
+
+.header-static {
+    position: static;
 }
 
 
-.wrapper {
+.wrapper_background {
     color: white;
-    flex-grow:1;
+    flex-grow: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    height: 100%;
 }
 
-.wrapper__user_block {
-    display: flex;
-    justify-content: space-between;
-    width: 2000px;
-    height: 900px;
-    gap: 15px;
+.user_profile__content {
+    color: black;
 }
 
-.user_block__user_card {
+
+.wrapper_user_profile {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    justify-content: space-between;
-    height: 100%;
-    padding: 50px;
-    width: 800px;
+    flex-grow: 1;
+    width: 1100px;
+    background-color: white;
+    box-shadow: 0 0 10px white;
+    padding: 20px;
 }
 
-
-.user_block__user_card, .user_block {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid var(--main-color);
-    box-shadow: 0 0 10px rgb(0, 0, 0);
+.user_profile__title {
+    text-align: center;
+    margin-bottom: 50px;
+    color: black;
 }
 
+.block_title {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 
-.user_card__user_info {
+.block {
+    margin-bottom: 30px;
+    background-color: #f3f5f5;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+}
+
+.content__name_avatar_block {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: black;
 }
 
-.user_card__avatar {
-    position: relative;
-    background-color: white;
-    margin: 0 auto;
-    width: 300px;
-    height: 300px;
+.name_avatar_block__avatar {
+    margin: 10px 0;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
+    border: 2px solid black;
+    box-shadow: 0 0 10px black;
+}
+
+.name_avatar_block__name {
     margin-bottom: 15px;
-    border: 3px solid var(--main);
 }
 
-.user_card__avatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 49%;
-}
-
-.user_name__firstname, .user_name__secondname {
-    text-align: center;
-    font-size: 45px;
-    letter-spacing: 5px;
-    text-transform: capitalize;
-}
-
-.user-info__change_avatar_button {
-    margin-bottom: 30px;
-    width: 50%;
-    font-size: 20px;
-    padding: 10px;
-
-}
-
-.user-info__change_avatar_button, .personal_data__update_button, .user_block__change_user_data {
-    color: white;
-    outline: none;
-    border: 1px solid var(--main-color);
-    background-color: transparent;
+.button {
+    width: 150px;
+    height: 40px;
     border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid var(--main-color);
+    color: black;
     cursor: pointer;
-    transition: all 200ms ease-in-out;
-    height: 50px;
+    transition: all 250ms ease-in-out;
+    margin-bottom: 10px;
+}
+
+.button:hover {
+    background-color: var(--main-color);
 }
 
 
-.user-info__change_avatar_button:hover, .personal_data__update_button:hover, .user_block__change_user_data:hover {
-    background-color: white;
-    color: var(--main-color)
-}
+/*achievements block*/
 
-
-.user_achivements__title {
-    text-align: center;
-    font-size: 40px;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-}
-
-
-.user_achivements__wrapper_for_achivements {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 0;
-    text-align: center;
-    width: 100%;
-}
-
-
-/* Personal Data Block */
-
-.user_block {
-    width: 100%;
-    height: 100%;
-}
-
-.user_block__personal_data {
+.content__user_achievements {
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    padding: 50px;
-    width: 100%;
+    gap: 20px;
+}
+
+.user_achievements__wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.user_achievements__title {
+    font-size: 40px;
 }
 
 
-.personal_data__field {
+.user_achievements__card {
+    border-radius: 10px;
+    width: 120px;
+
+}
+
+.user_achievements__card__wrapper{
+    position: relative;
+    max-width: 120px;
+    transition: all 450ms cubic-bezier(0.250, 0.250, 0.000, 1.055);
+}
+
+.user_achievements__card__wrapper:hover{
+    transform: scale(120%);
+}
+
+.user_achievements__card:hover{
+    transform: rotateY(var(--move-x)) rotateX(var(--move-y));
+}
+
+.achievement_lock {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+.service_achievement_block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #e5e6e6;
+    border-radius: 10px;
+}
+
+.user_achievements__description{
+    width: 150px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.user_achievements__description h6{
+    font-size: 13px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/*user info*/
+
+.user_block__personal_data{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.personal_data__field{
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 30px;
-    width: 100%;
-    justify-content: space-between;
+    gap: 50px;
+    background-color: #e5e6e6;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
 }
 
-
-.field__input {
-    position: relative;
+.field__title{
+    width: 150px;
+    font-size: 15px;
 }
 
-.field__errors {
-    position: absolute;
-    top: 45px;
-    left: 15px;
-}
-
-.field__errors li {
-    color: var(--additional-color);
+.field__input input{
     font-size: 14px;
-}
-
-.field__title h1 {
-    text-align: right;
-    width: 150px;
-    text-transform: capitalize;
-    font-size: 18px;
-    font-weight: 300;
-}
-
-.field__input, .field__input input {
-    color: white;
-    width: 100%;
-    border-radius: 10px;
-}
-
-.field__input input {
-    height: 40px;
     background-color: transparent;
-    border: 1px solid var(--main-color);
-    outline: none;
-    padding-left: 20px;
-}
-
-.field__button button {
-    height: 40px;
-    width: 150px;
-    background-color: black;
-    border: 1px solid var(--main-color);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.personal_data__update_button {
-    display: none;
-}
-
-.user_block__change_password_title {
-    text-align: center;
+    border:none;
+    padding: 5px;
 }

@@ -53,11 +53,30 @@
             <button class="download_button">Download</button>
         </div>
         {% else %}
-        <i class='bx bx-cog converted_part__gear' ></i>
+        <i class='bx bx-cog converted_part__gear'></i>
         <p class="converted_part__info">The file is being processed, please wait.</p>
         {% endif %}
     </div>
 
 </div>
 {% endfor%}
+{% endmacro %}
+
+
+{% macro render_achievement_block(achievement_list) %}
+{% for achievement in achievement_list %}
+<div class="user_achievements__wrapper">
+    <div class="user_achievements__card__wrapper">
+        {% if achievement.unlocked %}
+        <img class="user_achievements__card" src="{{ achievement.image_link  }}" alt="">
+        {% else %}
+        <img class="user_achievements__card achievement_lock" src="{{ achievement.image_link  }}" alt="">
+        {% endif%}
+    </div>
+    <div class="user_achievements__description">
+        <h6>{{ achievement.name }}</h6>
+        <p>{{ achievement.description }}</p>
+    </div>
+</div>
+{% endfor %}
 {% endmacro %}
