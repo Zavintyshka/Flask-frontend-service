@@ -1,3 +1,22 @@
+.first_page{
+    position: relative;
+}
+
+.first_page::after{
+    content: "";
+    position: absolute;
+    z-index: 15;
+    width: 100%;
+    height: 200px;
+    background-image: url("../images/transition_layer.png");
+    background-size: cover;
+    background-position: center;
+    bottom: -150px;
+    transform: translate3d(0, calc(var(--scrollTop) * -0.08), 0);
+    will-change: transform;
+}
+
+
 .layers {
     position: relative;
     width: 100%;
