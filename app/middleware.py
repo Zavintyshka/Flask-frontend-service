@@ -14,12 +14,23 @@ def middleware(app):
         if "static" in request.url:
             return
         url = settings.API_GATEWAY_URL + "/user/account/"
-        header = {"Authorization": f"Bearer {user_jwt_token}"}
-        response = requests.get(url, headers=header)
+        response = make_authenticated_request("GET", url, jwt_token=user_jwt_token)
         if response.status_code == 200:
             user_data: dict = response.json()
             g.user = {"user": user_data}
-            print("Доступ есть")
         else:
             g.user = {"user": None}
-            print("Доступа нет")
+
+
+def make_authenticated_request(method: str, url: str, jwt_token: str, **kwargs) -> requests.Response:
+    match method.upper():
+        case "GET":
+            request_func = requests.get
+        case "POST":
+            request_func = requests.post
+        case "PUT":
+            request_func = requests.put
+        case _:
+            raise Exception("Invalid request method")
+    headers = {"Authorization": f"Bearer {jwt_token}"}
+    return request_func(url=url, headers=headers, **kwargs)

@@ -1,6 +1,7 @@
 import requests
 from flask import Blueprint, render_template, request, redirect, url_for, make_response, g
 from ..app_forms import UserDataForm
+from ..middleware import make_authenticated_request
 from settings import settings
 from datetime import datetime
 
@@ -19,8 +20,7 @@ def user_profile_view():
 
     url = f"{settings.API_GATEWAY_URL}/user/achievement/"
     jwt_token = request.cookies["jwt_token"]
-    header = {"Authorization": f"Bearer {jwt_token}"}
-    achievement_list = requests.get(url, headers=header).json()
+    achievement_list = make_authenticated_request("GET", url=url, jwt_token=jwt_token).json()
 
     achievement_list_video = []
     achievement_list_image = []
@@ -55,8 +55,7 @@ def user_profile_view():
             del user_data_json["username"]
             url = f"{settings.API_GATEWAY_URL}/user/account/"
             jwt_token = request.cookies["jwt_token"]
-            header = {"Authorization": f"Bearer {jwt_token}"}
-            requests.put(url, headers=header, json=user_data_json)
+            make_authenticated_request("PUT", url=url, jwt_token=jwt_token, json=user_data_json)
             return redirect(url_for("user.user_profile_view"))
 
 
@@ -69,8 +68,7 @@ def user_files_view(username: str):
 
     url = f"{settings.API_GATEWAY_URL}/video/pairs_list"
     jwt_token = request.cookies["jwt_token"]
-    header = {"Authorization": f"Bearer {jwt_token}"}
-    action_list = requests.get(url, headers=header).json()
+    action_list = make_authenticated_request("GET", url=url, jwt_token=jwt_token).json()
     return render_template("user/user_files.html", action_list=action_list, user=user_data)
 
 
@@ -100,7 +98,7 @@ def not_authorized_view():
 @user_blueprint.get("/login/logout/")
 def logout_view():
     response = make_response(redirect(location=url_for("index.index_get")))
-    response.set_cookie("jwt_token", '', expires=0, httponly=True)
+    response.set_cookie("jwt_token", '', expires=0, httponly=False)
     return response
 
 

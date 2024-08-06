@@ -1,6 +1,5 @@
 window.addEventListener('scroll', e => {
 	document.documentElement.style.setProperty('--scrollTop', `${this.scrollY}px`)
-    close_popup_menu()
 })
 
 const wrapper_box = document.querySelector(".wrapper_box")
@@ -19,7 +18,7 @@ const login_form = document.querySelector(".login_form_box")
 
 // Init Value
 const init_value = function(){
-    wrapper_inner.style.height="calc(var(--index) * 12)"
+    wrapper_inner.style.height="500px"
     register_form.style.transform="translateX(100%)"
     login_form.style.transform="translateX(0%)"
     register_form.style.display=""
@@ -39,7 +38,7 @@ const show_login_form = function(){
 }
 
 const show_register_form = function(){
-    wrapper_inner.style.height="calc(var(--index) * 19)"
+    wrapper_inner.style.height="650px"
     switch_form(login_form)
     switch_form(register_form)
 }
@@ -65,3 +64,26 @@ if (popup_login_btn){
 close_popup_menu_btn.addEventListener("click", close_popup_menu)
 register_link.addEventListener("click", show_register_form)
 login_link.addEventListener("click", show_login_form)
+
+
+const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});

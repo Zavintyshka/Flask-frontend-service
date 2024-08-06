@@ -5,15 +5,20 @@ MediaConverter
 {% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <link rel="stylesheet" href=" {{ url_for('static', filename='css/index_style.css') }}">
 {% endblock %}
 
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
 {% endblock %}
 
+
 {% block content %}
 <div class="first_page">
+    <h1 id="main_title1">Media</h1>
+    <h1 id="main_title2">Converter</h1>
     <div class="layers">
         <div class="layers layer_back"
              style="background-image: url({{ url_for('static', filename='images/back.png')}})"></div>
@@ -61,7 +66,7 @@ MediaConverter
             </div>
 
             <div class="register_form_box">
-                <h1 class="form_header">Registration</h1>
+                <h1 class="register_form_header">Registration</h1>
                 <form action="" method="post">
                     <div class="input_box">
                     <span class="icon">
@@ -122,50 +127,56 @@ MediaConverter
         </div>
     </div>
 </div>
-<div class="second_page" style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
-    <div class="content_box">
-        <div class="information_card video_box">
-            <h1>Video Converter</h1>
-            <div class="card_image ada">
-                <img src="/static/images/ada.jpg" alt="">
+<div id="second_page" style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="information_card video_box">
+                    <h1 class="information_card__title"> Video Converter</h1>
+                    <img class="card_image ada" src="/static/images/ada.jpg" alt="">
+                    <div class="information_list">
+                        <ul>
+                            <li>Making GIF file from video;</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                        </ul>
+                    </div>
+                    <button class="service_buttons">to Video Editor</button>
+                </div>
             </div>
-            <div class="information_list">
-                <ul>
-                    <li>Making GIF file from video;</li>
-                    <li>Lorem ipsum dolor sit amet.</li>
-                    <li>Lorem ipsum dolor sit amet.</li>
-                </ul>
+            <div class="swiper-slide">
+                <div class="information_card image_box">
+                    <h1 class="information_card__title">Image Converter</h1>
+                    <img class="card_image leon" src="/static/images/leon.jpeg" alt="">
+                    <div class="information_list">
+                        <ul>
+                            <li>Making PDF file from several images;</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                        </ul>
+                    </div>
+                    <button class="service_buttons">to Image Editor</button>
+                </div>
             </div>
-            <button class="serice_buttons video_button">Video Editor</button>
+            <div class="swiper-slide">
+                <div class="information_card audio_box">
+                    <h1 class="information_card__title">Audio Converter</h1>
+                    <img class="card_image ashley" src="/static/images/ashley.jpg" alt="">
+                    <div class="information_list">
+                        <ul>
+                            <li>Converting to different formats;</li>
+                            <li>Audio slicing;</li>
+                            <li>Extracting audio tracs from video files.</li>
+                        </ul>
+                    </div>
+                    <button class="service_buttons">to Audio Editor</button>
+                </div>
+            </div>
         </div>
-        <div class="information_card image_box">
-            <h1>Image Converter</h1>
-            <div class="card_image leon">
-                <img src="/static/images/leon.jpeg" alt="">
-            </div>
-            <div class="information_list">
-                <ul>
-                    <li>Making PDF file from several images;</li>
-                    <li>Lorem ipsum dolor sit amet.</li>
-                    <li>Lorem ipsum dolor sit amet.</li>
-                </ul>
-            </div>
-            <button class="serice_buttons image_button">Image Editor</button>
-        </div>
-        <div class="information_card audio_box">
-            <h1>Audio Converter</h1>
-            <div class="card_image ashley">
-                <img src="/static/images/ashley.jpg" alt="">
-            </div>
-            <div class="information_list">
-                <ul>
-                    <li>Converting to different formats;</li>
-                    <li>Audio slicing;</li>
-                    <li>Extracting audio tracs from video files.</li>
-                </ul>
-            </div>
-            <button class="serice_buttons audio_button">Audio Editor</button>
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
     </div>
 </div>
 {% endblock %}

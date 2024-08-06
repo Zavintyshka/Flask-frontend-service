@@ -30,7 +30,7 @@ def index_post():
         case 200:
             jwt_token = response.json()["access_token"]
             cookie_response = make_response(redirect(url_for("index.index_get")))
-            cookie_response.set_cookie('jwt_token', jwt_token, httponly=True)
+            cookie_response.set_cookie('jwt_token', jwt_token, httponly=False)
             return cookie_response
         case 404 | 403:
             return redirect(url_for("user.wrong_credentials_view"))
