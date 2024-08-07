@@ -24,7 +24,7 @@
             <i class='bx bxs-video'></i>
         </div>
         <div class="part_filename">
-            <h4>{{action.raw_filename}}</h4>
+            <h4>{{action.raw_filename}}.{{ action.raw_file_extension}}</h4>
         </div>
         <div class="part_file_type_wrapper">
             <p>{{action.raw_file_extension}}</p>
@@ -41,7 +41,7 @@
             <i class='bx bxs-music'></i>
         </div>
         <div class="part_filename">
-            <h4>{{action.converted_filename}}</h4>
+            <h4>{{action.raw_filename}}_converted.{{ action.converted_file_extension}}</h4>
         </div>
         <div class="part_file_type_wrapper">
             <p>{{action.converted_file_extension}}</p>
