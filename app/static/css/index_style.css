@@ -364,7 +364,10 @@ html {
     opacity: 40%;
 }
 
-.service_buttons {
+.service_links {
+    line-height: 75px;
+    text-align: center;
+    text-decoration: none;
     height: 75px;
     width: 350px;
     margin: 0 auto 40px;
@@ -377,7 +380,7 @@ html {
     background-color: transparent;
 }
 
-.service_buttons:hover {
+.service_links:hover {
     color: var(--main-color);
     background-color: white;
 }

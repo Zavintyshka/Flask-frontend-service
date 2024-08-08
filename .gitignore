@@ -1,5 +1,6 @@
 .idea
 __pycache__
 flask_venv
+app/static/test_video/
 .env
 temp_file.html

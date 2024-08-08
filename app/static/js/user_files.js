@@ -2,7 +2,6 @@ const download_buttons = document.querySelectorAll(".download_button")
 
 const jwt_token = document.cookie.split("jwt_token=")[1]
 
-
 const download_file = (url, downloading_filename) => {
     fetch(url, {
         method: "GET",
@@ -11,7 +10,7 @@ const download_file = (url, downloading_filename) => {
         }
     }).then(response => {
         if (!response.ok) {
-            alert(`Something went wrong. Status: ${response.status}`)
+            return alert(`Something went wrong. Status: ${response.status}`)
         }
         return response.blob()
     }).then(data => {

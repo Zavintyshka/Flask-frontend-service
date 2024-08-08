@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    padding: 35px;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: darkgray;
+    width: 1100px;
+    margin: 60px auto 0;
+    align-items: center;
+}
+
+.service_title {
+    margin-bottom: 20px;
+}
+
+.drag_and_drop_area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 4px dashed black;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.drag_and_drop_area__description {
+    text-align: center;
+    width: 400px;
+    font-size: 46px;
+    user-select: none;
+}
+
+#video_file {
+    display: none;
+}
+
+
+.video_block__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 0;
+    width: 100%;
+    transition: all 800ms cubic-bezier(0.170, 0.020, 0.180, 0.980);
+    overflow: hidden;
+}
+
+.video_block {
+    padding: 35px;
+    background-color: lightgray;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.video_block__title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#videoplayer {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.actions {
+    width: 100%;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 35px;
+}
+
+.action_title {
+    margin-right: 200px;
+}
+
+
+.cut_action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.cut_action__controls {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: right;
+
+}
+
+
+.controls__title {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+
+.cut_action__start_time, .cut_action__end_time {
+    margin: 0 10px;
+    width: 60px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+    user-select: none;
+}
+
+
+.cut_action__set_end_time, .cut_action__set_start_time {
+    cursor: pointer;
+    outline: none;
+    width: 60px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-right: 20px;
+    text-transform: capitalize;
+    border: 3px solid black;
+    transition: all 250ms ease-in-out;
+}
+
+.cut_action__set_end_time:hover, .cut_action__set_start_time:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+
+.cut_action__submit_button {
+    width: 80px;
+    height: 30px;
+    background-color: var(--main-color);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    border:none;
+    cursor: pointer;
+    transition: all 250ms ease-in-out;
+}
+
+.cut_action__submit_button:hover{
+    background-color: var(--additional-color);
+}
+
+
