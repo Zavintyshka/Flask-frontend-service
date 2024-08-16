@@ -30,7 +30,7 @@ def video_editor():
                                                    url=settings.API_GATEWAY_URL + "/video/file",
                                                    data=data, files=files, jwt_token=jwt_token).json()["file_uuid"]
 
-            json_data = {"file_uuid": file_uuid, "from_extension": "mp4", "to_extension": "mp3"}
+            json_data = {"file_uuid": file_uuid, "action_type": fields["action_type"], "action": fields["action"]}
 
             response = make_authenticated_request("POST",
                                                   url=settings.API_GATEWAY_URL + "/video/processes_file",

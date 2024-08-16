@@ -23,11 +23,21 @@ const cut_submit_button = document.querySelector(".cut_action__submit_button")
 
 const form_data = new FormData();
 
+function getFileExtension(filename) {
+    const dotIndex = filename.lastIndexOf('.');
+    return dotIndex !== -1 ? filename.slice(dotIndex + 1) : '';
+}
+
+
 const get_formatted_time = (raw_seconds) => {
-    const total_seconds = Math.floor(raw_seconds);
-    const minutes = Math.floor(total_seconds / 60);
-    const seconds = (total_seconds % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`
+
+    const ms = Math.floor((raw_seconds % 1 * 1000)).toString().padStart(2, "0")
+    const total_seconds = Math.floor(raw_seconds)
+    const hours = Math.floor(total_seconds / 3600).toString().padStart(2, "0")
+    const minutes = Math.floor(total_seconds % 3600 / 60).toString().padStart(2, "0")
+    const seconds = (total_seconds % 60).toString().padStart(2, "0")
+
+    return [`${minutes}:${seconds}`, `${hours}:${minutes}:${seconds}.${ms}`]
 }
 
 // drag & drop area
@@ -65,21 +75,22 @@ drag_area.addEventListener("drop", (e) => {
 // cut action
 set_start_time_button.addEventListener("click", () => {
     const time = videoplayer.currentTime
-    start_time.setAttribute("time", time)
-    start_time.textContent = get_formatted_time(time);
+    const formatted_times = get_formatted_time(time)
+    start_time.setAttribute("time", formatted_times[1])
+    start_time.textContent = formatted_times[0];
 })
 set_end_time_button.addEventListener("click", () => {
     const time = videoplayer.currentTime
-    end_time.setAttribute("time", time)
-    end_time.textContent = get_formatted_time(time);
+    const formatted_times = get_formatted_time(time)
+    end_time.setAttribute("time", formatted_times[1])
+    end_time.textContent = formatted_times[0];
 })
 cut_submit_button.addEventListener("click", () => {
-    form_data.append("action", "cut");
-    form_data.append("start_time", start_time.getAttribute("time"));
-    form_data.append("end_time", end_time.getAttribute("time"));
+    form_data.append("action_type", "cut");
+    const file_ext = getFileExtension(form_data.get("filename"))
+    form_data.append("action", `${file_ext};${file_ext};${start_time.getAttribute("time")};${end_time.getAttribute("time")}`);
     send_video();
 })
-
 
 const upload_video = (file) => {
     form_data.append("file", file)
@@ -101,6 +112,6 @@ const send_video = () => {
         if (!response.ok) {
             return alert(`Something went wrong. Status: ${response.status}`)
         }
-        window.location.href="http://192.168.0.176:5050/"
+        window.location.href = "http://192.168.0.176:5050/"
     })
 }
