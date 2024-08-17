@@ -1,6 +1,7 @@
 const jwt_token = document.cookie.split("jwt_token=")[1]
 
 // drag & drop area
+const drag_area_wrapper = document.querySelector(".drag_and_drop_area_wrapper");
 const drag_area = document.querySelector(".drag_and_drop_area");
 const description = drag_area.querySelector(".drag_and_drop_area__description")
 const input_field = drag_area.querySelector("#video_file")
@@ -97,7 +98,24 @@ const upload_video = (file) => {
     form_data.append("filename", file.name)
     filename.textContent = file.name;
     videoplayer.src = URL.createObjectURL(file);
-    video_wrapper.style.height = "1500px"
+    drag_area_wrapper.classList.add("drag_and_drop_area_wrapper-disabled")
+    video_wrapper.classList.remove("video_block__wrapper-disabled")
+    preload_video()
+}
+
+
+const preload_video = () => {
+    fetch("http://192.168.0.176:5050/preload/", {
+        method: "POST",
+        credentials: "same-origin",
+        body: form_data
+    }).then(response => {
+        if (response.ok) {
+            console.log("success")
+        } else {
+            console.log("something went wrong")
+        }
+    })
 }
 
 

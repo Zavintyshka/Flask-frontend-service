@@ -6,6 +6,7 @@ from .audio_service import audio_blueprint
 from .video_service import video_blueprint
 from .image_service import image_blueprint
 from .middleware import middleware
+from .preloader import preloader_blueprint
 
 
 def create_app() -> Flask:
@@ -15,6 +16,7 @@ def create_app() -> Flask:
     app.register_blueprint(audio_blueprint)
     app.register_blueprint(video_blueprint)
     app.register_blueprint(image_blueprint)
+    app.register_blueprint(preloader_blueprint)
     middleware(app)
 
     return app

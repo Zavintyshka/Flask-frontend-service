@@ -15,31 +15,65 @@
 {% block content %}
 <div class="wrapper">
     <h1 class="service_title">Welcome to Video Editor</h1>
-    <div class="drag_and_drop_area">
-        <p class="drag_and_drop_area__description">Drag video or click to upload it</p>
-        <input id="video_file" type="file">
-    </div>
-
-    <div class="video_block__wrapper">
-        <div class="video_block">
-            <h1 class="video_block__title">To continue please upload file</h1>
-            <video id="videoplayer" src="{{ url_for('static', filename='test_video/papich.mp4') }}" controls></video>
+    <div class="drag_and_drop_area_wrapper">
+        {% if file_data %}
+        <div class="drag_and_drop_area drag_and_drop_area-disabled">
+            {% else%}
+            <div class="drag_and_drop_area">
+                {% endif %}
+                <p class="drag_and_drop_area__description">Drag video or click to upload it</p>
+                <input id="video_file" type="file">
+            </div>
         </div>
 
-        <div class="actions">
-            <div class="cut_action">
-                <h1 class="action_title">Cut</h1>
-                <div class="cut_action__controls">
-                    <p class="controls__title">Start:</p>
-                    <p class="cut_action__start_time">0:00</p>
-                    <button class="cut_action__set_start_time">set</button>
-                    <p class="controls__title">End:</p>
-                    <p class="cut_action__end_time">0:00</p>
-                    <button class="cut_action__set_end_time">set</button>
-                    <button class="cut_action__submit_button">cut</button>
+        {% if file_data %}
+        <div class="video_block__wrapper">
+            <div class="video_block">
+                <h1 class="video_block__title">To continue please upload file</h1>
+                <video id="videoplayer" src="{{ url_for('preloader.load_user_file', file_uuid=file_data.file_uuid)}}"
+                       controls></video>
+            </div>
+            {% else %}
+            <div class="video_block__wrapper video_block__wrapper-disabled">
+                <div class="video_block">
+                    <h1 class="video_block__title">To continue please upload file</h1>
+                    <video id="videoplayer"
+                           src=""
+                           controls></video>
+                </div>
+                {% endif %}
+
+
+                <div class="actions">
+                    <div class="cut_action">
+                        <h1 class="action_title">Cut</h1>
+                        <div class="cut_action__controls">
+                            <p class="controls__title">Start:</p>
+                            <p class="cut_action__start_time">0:00</p>
+                            <button class="cut_action__set_start_time">set</button>
+                            <p class="controls__title">End:</p>
+                            <p class="cut_action__end_time">0:00</p>
+                            <button class="cut_action__set_end_time">set</button>
+                            <button class="cut_action__submit_button">cut</button>
+                        </div>
+                    </div>
+
+                    <div class="convert_action">
+                        <h1 class="action_title">Convert</h1>
+                        <div class="convert_action__controls">
+                            <p>Convert from </p>
+                            <p class="convert_action__file_ext_from"></p>
+                            <label for="file_ext_list">to:</label>
+                            <select name="" id="file_ext_list">
+                                <option value="mp3">mp4</option>
+                                <option value="wav">wav</option>
+                            </select>
+                            <button class="convert_action__submit_button">Convert</button>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+        {% endblock %}

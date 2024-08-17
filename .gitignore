@@ -2,5 +2,6 @@
 __pycache__
 flask_venv
 app/static/test_video/
+preload_files/
 .env
 temp_file.html
