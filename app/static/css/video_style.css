@@ -2,10 +2,17 @@
     box-sizing: border-box;
 }
 
+.wrapper_background{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-grow:1;
+    display: flex;
+}
+
 .wrapper {
     padding: 35px;
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
     background-color: white;
     width: 1100px;
@@ -71,7 +78,7 @@
 
 .video_block {
     padding: 35px;
-    background-color: lightgray;
+    background-color: #f4f5f5;
     width: 100%;
     border-radius: 10px;
 }
@@ -88,10 +95,10 @@
 
 .actions {
     width: 100%;
-    background-color: lightgray;
+    background-color: #f4f5f5;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     border-radius: 10px;
     padding: 35px;
 }
@@ -101,7 +108,10 @@
 }
 
 
-.cut_action, .convert_action {
+.action {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e5e6e6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,20 +119,18 @@
 
 .cut_action__controls {
     display: flex;
-    width: 50%;
     align-items: center;
     justify-content: right;
-
 }
-
 
 .controls__title {
     font-weight: 700;
     font-size: 18px;
+    margin-left: 10px;
 }
 
 
-.cut_action__start_time, .cut_action__end_time {
+.cut_action__start_time, .cut_action__end_time, .convert_action__file_ext_from {
     margin: 0 10px;
     width: 60px;
     height: 30px;
@@ -142,7 +150,6 @@
     height: 30px;
     background-color: transparent;
     border-radius: 10px;
-    margin-right: 20px;
     text-transform: capitalize;
     border: 3px solid black;
     transition: all 250ms ease-in-out;
@@ -153,9 +160,10 @@
     color: white;
 }
 
-.cut_action__submit_button, .convert_action__submit_button {
+.action_button {
     width: 80px;
     height: 30px;
+    margin-left: 20px;
     background-color: var(--main-color);
     border-radius: 10px;
     color: white;
@@ -166,10 +174,30 @@
     transition: all 250ms ease-in-out;
 }
 
-.cut_action__submit_button:hover, .convert_action__submit_button:hover {
+.action_button:hover {
     background-color: var(--additional-color);
 }
 
 .convert_action__controls {
     display: flex;
+    align-items: center;
+}
+
+.convert_action__controls p, .ext_drop_down_menu {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+#file_ext_list {
+    margin-left: 10px;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    font-weight: 700;
 }

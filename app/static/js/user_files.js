@@ -1,6 +1,6 @@
 const download_buttons = document.querySelectorAll(".download_button")
 
-const jwt_token = document.cookie.split("jwt_token=")[1]
+const jwt_token = document.cookie.match(/jwt_token=([^;]+)/)[1];
 
 const download_file = (url, downloading_filename) => {
     fetch(url, {

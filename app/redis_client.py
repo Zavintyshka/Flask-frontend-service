@@ -19,6 +19,11 @@ class RedisConnection:
     def get_record(self, user_session_id: str) -> dict:
         return self.client.hgetall(user_session_id)
 
+    def delete_record(self, user_session_id: str):
+        fields = self.client.hkeys(user_session_id)
+        if fields:
+            self.client.hdel(user_session_id, *fields)
+
     def update_expire_time(self, user_session_id: str, ttl: int = 3600):
         self.client.expire(user_session_id, ttl)
 

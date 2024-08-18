@@ -22,7 +22,12 @@ const end_time = document.querySelector(".cut_action__end_time")
 const cut_submit_button = document.querySelector(".cut_action__submit_button")
 
 
+// 2. Convert
+const file_ext_field = document.querySelector(".convert_action__file_ext_from")
+file_ext_field.textContent = getFileExtension(filename.textContent)
+
 const form_data = new FormData();
+
 
 function getFileExtension(filename) {
     const dotIndex = filename.lastIndexOf('.');
@@ -31,7 +36,6 @@ function getFileExtension(filename) {
 
 
 const get_formatted_time = (raw_seconds) => {
-
     const ms = Math.floor((raw_seconds % 1 * 1000)).toString().padStart(2, "0")
     const total_seconds = Math.floor(raw_seconds)
     const hours = Math.floor(total_seconds / 3600).toString().padStart(2, "0")
@@ -88,7 +92,7 @@ set_end_time_button.addEventListener("click", () => {
 })
 cut_submit_button.addEventListener("click", () => {
     form_data.append("action_type", "cut");
-    const file_ext = getFileExtension(form_data.get("filename"))
+    const file_ext = getFileExtension(filename.textContent)
     form_data.append("action", `${file_ext};${file_ext};${start_time.getAttribute("time")};${end_time.getAttribute("time")}`);
     send_video();
 })
@@ -97,6 +101,7 @@ const upload_video = (file) => {
     form_data.append("file", file)
     form_data.append("filename", file.name)
     filename.textContent = file.name;
+    file_ext_field.textContent = getFileExtension(file.name)
     videoplayer.src = URL.createObjectURL(file);
     drag_area_wrapper.classList.add("drag_and_drop_area_wrapper-disabled")
     video_wrapper.classList.remove("video_block__wrapper-disabled")
@@ -118,18 +123,17 @@ const preload_video = () => {
     })
 }
 
-
 const send_video = () => {
-    console.log(form_data)
-    fetch("http://192.168.0.176:5050/video", {
-            method: "POST",
-            credentials: "include",
-            body: form_data
+    fetch("http://192.168.0.176:5050/video/", {
+        method: "POST",
+        credentials: "same-origin",
+        body: form_data
+    }).then(response => {
+        if (response.ok) {
+            console.log("success")
+            window.location.href = "/"
+        } else {
+            console.log("Something went wrong")
         }
-    ).then(response => {
-        if (!response.ok) {
-            return alert(`Something went wrong. Status: ${response.status}`)
-        }
-        window.location.href = "http://192.168.0.176:5050/"
     })
 }

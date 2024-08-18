@@ -1,8 +1,11 @@
+from pathlib import Path
 from uuid import uuid4
 from flask import Blueprint, render_template, g, request, redirect, url_for, make_response
+
+from redis_event import delete_user_preload_folder
 from ..middleware import make_authenticated_request
 from ..redis_client import redis_connection
-from settings import settings, TTL
+from settings import settings, TTL, PRELOAD_FOLDER
 
 __all__ = ["video_blueprint"]
 
@@ -29,26 +32,33 @@ def video_editor_get():
             file_data = None
         else:
             file_data = {"file_uuid": file_redis_data["file_uuid"], "filename": file_redis_data["filename"]}
-        return render_template("service_pages/video_page.html", **g.user, file_data=file_data)
+        response = make_response(render_template("service_pages/video_page.html", **g.user, file_data=file_data))
+        response.set_cookie("user_session_id", user_session_id, max_age=TTL)
+        return response
 
 
-@video_blueprint.get("/video/")
+@video_blueprint.post("/video/")
 def video_editor_post():
     jwt_token = request.cookies["jwt_token"]
-    file = request.files["file"]
-    fields = dict(request.form)
-    data = {
-        "filename": fields["filename"]
-    }
+    user_session_id = request.cookies["user_session_id"]
+    file_data = redis_connection.get_record(user_session_id)
+    fields = dict(request.form)  # action_type, action
 
-    files = {'file': (file.filename, file.stream, file.content_type)}
-    file_uuid = make_authenticated_request("POST",
-                                           url=settings.API_GATEWAY_URL + "/video/file",
-                                           data=data, files=files, jwt_token=jwt_token).json()["file_uuid"]
+    with open(f"{PRELOAD_FOLDER}/{user_session_id}/{file_data["file_uuid"]}", "rb") as obj:
+        file = {"file": (file_data["filename"], obj, "video")}
+        file_uuid = make_authenticated_request("POST",
+                                               url=settings.API_GATEWAY_URL + "/video/file",
+                                               data={"filename": file_data["filename"]},
+                                               files=file,
+                                               jwt_token=jwt_token).json()["file_uuid"]
 
     json_data = {"file_uuid": file_uuid, "action_type": fields["action_type"], "action": fields["action"]}
 
     response = make_authenticated_request("POST",
                                           url=settings.API_GATEWAY_URL + "/video/processes_file",
                                           json=json_data, jwt_token=jwt_token)
+    if response.ok:
+        delete_user_preload_folder(user_session_id)
+        redis_connection.delete_record(user_session_id)
+
     return "201"
