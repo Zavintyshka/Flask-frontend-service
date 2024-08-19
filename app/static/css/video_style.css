@@ -2,11 +2,11 @@
     box-sizing: border-box;
 }
 
-.wrapper_background{
+.wrapper_background {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    flex-grow:1;
+    flex-grow: 1;
     display: flex;
 }
 
@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 1500px;
+    height: auto;
     width: 100%;
     transition: all 800ms cubic-bezier(0.170, 0.020, 0.180, 0.980);
     overflow: hidden;
@@ -200,4 +200,57 @@
     background-color: black;
     color: white;
     font-weight: 700;
+}
+
+
+@media screen and (max-width: 1100px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .drag_and_drop_area_wrapper {
+        width: 60%;
+        height: 200px
+    }
+
+    .drag_and_drop_area_wrapper-disabled {
+        height: 0;
+    }
+
+    .drag_and_drop_area__description{
+        font-size: 24px;
+        padding: 10px;
+    }
+
+    .service_title {
+        text-align: center;
+    }
+
+    .actions, .video_block{
+        padding: 10px;
+    }
+    .video_block__title{
+        margin-bottom: 10px;
+    }
+
+    .action{
+        flex-direction: column;
+        align-items: center;
+        gap:10px;
+    }
+    .action_title{
+        margin:0;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .cut_action__controls, .convert_action__controls{
+        flex-direction: column;
+        align-items: center;
+        gap:10px
+    }
+    .action_button{
+        margin:0;
+    }
 }
