@@ -23,11 +23,13 @@ const cut_submit_button = document.querySelector(".cut_action__submit_button")
 
 
 // 2. Convert
+const convert_submit_button = document.querySelector(".convert_action__submit_button")
 const file_ext_field = document.querySelector(".convert_action__file_ext_from")
+const drop_down_menu = document.querySelector("#file_ext_list")
 file_ext_field.textContent = getFileExtension(filename.textContent)
 
-const form_data = new FormData();
 
+const form_data = new FormData();
 
 function getFileExtension(filename) {
     const dotIndex = filename.lastIndexOf('.');
@@ -94,6 +96,16 @@ cut_submit_button.addEventListener("click", () => {
     form_data.append("action_type", "cut");
     const file_ext = getFileExtension(filename.textContent)
     form_data.append("action", `${file_ext};${file_ext};${start_time.getAttribute("time")};${end_time.getAttribute("time")}`);
+    send_video();
+})
+
+// convert action
+convert_submit_button.addEventListener("click", () => {
+    form_data.append("action_type", "convert");
+    const file_ext = getFileExtension(filename.textContent)
+    const convert_to_ext = drop_down_menu.value.toLowerCase()
+    console.log(convert_to_ext)
+    form_data.append("action", `${file_ext};${convert_to_ext}`);
     send_video();
 })
 

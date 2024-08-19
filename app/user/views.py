@@ -1,4 +1,5 @@
 import requests
+from pathlib import Path
 from flask import Blueprint, render_template, request, redirect, url_for, make_response, g
 from ..app_forms import UserDataForm
 from ..middleware import make_authenticated_request
@@ -69,6 +70,9 @@ def user_files_view(username: str):
     url = f"{settings.API_GATEWAY_URL}/video/pairs_list"
     jwt_token = request.cookies["jwt_token"]
     action_list = make_authenticated_request("GET", url=url, jwt_token=jwt_token).json()
+    for row in action_list:
+        row["converted_filename"] = Path(row["raw_filename"]).stem + "_converted." + row["converted_file_extension"]
+
     return render_template("user/user_files.html", action_list=action_list, user=user_data)
 
 
