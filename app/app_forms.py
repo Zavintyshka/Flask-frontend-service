@@ -1,4 +1,5 @@
-from wtforms import Form, StringField, EmailField, validators
+from wtforms import Form, StringField, EmailField, PasswordField, validators
+from wtforms.validators import InputRequired, EqualTo
 
 
 class UserDataForm(Form):
@@ -21,3 +22,15 @@ class UserDataForm(Form):
     username = StringField("Username:", render_kw={"readonly": True, "style": "color:gray"})
     email = EmailField("E-mail:")
     registered_at = StringField("Registered:", render_kw={"readonly": True, "style": "color:gray"})
+
+
+class ResetPasswordForm(Form):
+    email = EmailField("E-mail", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
+
+
+class ChangePasswordForm(Form):
+    password = PasswordField("Password", validators=[InputRequired()])
+    repeated_password = PasswordField("Repeated password",
+                                      validators=[InputRequired(),
+                                                  EqualTo("password", message="Passwords must match.")])

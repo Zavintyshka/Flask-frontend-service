@@ -2,6 +2,7 @@ import requests
 from pathlib import Path
 from flask import Blueprint, render_template, request, redirect, url_for, make_response, g
 from ..app_forms import UserDataForm
+from ..app_forms import ChangePasswordForm, ResetPasswordForm
 from ..middleware import make_authenticated_request
 from settings import settings
 from datetime import datetime
@@ -104,6 +105,32 @@ def logout_view():
     response = make_response(redirect(location=url_for("index.index_get")))
     response.set_cookie("jwt_token", '', expires=0, httponly=False)
     return response
+
+
+@user_blueprint.get("/reset-password/")
+def reset_password():
+    form = ResetPasswordForm()
+    return render_template("user/reset_password.html", **g.user, form=form)
+
+
+@user_blueprint.route("/change-password/<string:reset_token>", methods=["GET", "POST"])
+def change_password(reset_token: str):
+    api_response = requests.get(f"{settings.API_GATEWAY_URL}/user/check-token/{reset_token}")
+    user_data = dict(api_response.json()) if api_response.ok else None
+    match request.method:
+        case "GET":
+            form = ChangePasswordForm()
+        case "POST":
+            form = ChangePasswordForm(request.form)
+            is_form_valid = form.validate()
+            if not is_form_valid:
+                return render_template("user/change_password.html", user_data=user_data, form=form)
+            api_url = f"{settings.API_GATEWAY_URL}/user/reset-password/{reset_token}/"
+            password_data = {"password": form.password.data, "repeated_password": form.repeated_password.data}
+            api_response = requests.post(api_url, json=password_data)
+            return redirect(url_for("index.index_get"))
+
+    return render_template("user/change_password.html", user_data=user_data, form=form)
 
 
 def beautify_date(iso8086: str) -> str:

@@ -77,3 +77,16 @@
 </div>
 {% endfor %}
 {% endmacro %}
+
+
+{% macro render_input_field(field) %}
+<div class="input_field">
+    {{ field(**kwargs) }}
+    <label class="input_field__labels" for="email_field">{{ field.label }}</label>
+    <ul class="field__errors">
+        {% for error in field.errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endmacro %}
