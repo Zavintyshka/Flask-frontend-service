@@ -1,5 +1,6 @@
 import requests
 from flask import Blueprint, render_template, g, request, url_for, redirect, make_response
+from ..app_forms import UserLoginForm, UserRegisterForm
 from settings import settings
 
 __all__ = ["index_blueprint"]
@@ -9,7 +10,11 @@ index_blueprint = Blueprint("index", "__name__")
 
 @index_blueprint.get("/")
 def index_get():
-    return render_template("index/index.html", **g.user)
+    login_form = UserLoginForm()
+    register_form = UserRegisterForm()
+    return render_template("index/index.html", **g.user,
+                           login_form=login_form,
+                           register_form=register_form)
 
 
 @index_blueprint.post("/")
@@ -30,7 +35,7 @@ def index_post():
         case 200:
             jwt_token = response.json()["access_token"]
             cookie_response = make_response(redirect(url_for("index.index_get")))
-            cookie_response.set_cookie('jwt_token', jwt_token, httponly=False)
+            cookie_response.set_cookie('jwt_token', jwt_token, httponly=False, samesite="Lax")
             return cookie_response
         case 404 | 403:
             return redirect(url_for("user.wrong_credentials_view"))

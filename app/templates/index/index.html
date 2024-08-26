@@ -37,18 +37,19 @@ MediaConverter
             <div class="login_form_box">
                 <h1 class="form_header">Login</h1>
                 <form action="" method="post">
+                    {{ login_form.hidden_tag() }}
                     <div class="input_box">
                     <span class="icon">
                         <i class='bx bxs-user'></i>
                     </span>
-                        <input type="text" name="username" required>
+                        {{ login_form.username}}
                         <label for="username">Username</label>
                     </div>
                     <div class="input_box">
                     <span class="icon">
                         <i class='bx bxs-lock-alt'></i>
                     </span>
-                        <input type="password" name="password" required>
+                        {{ login_form.password}}
                         <label for="password">Password</label>
                     </div>
                     <div class="remember_forgot_box">
@@ -68,25 +69,26 @@ MediaConverter
             <div class="register_form_box">
                 <h1 class="register_form_header">Registration</h1>
                 <form action="" method="post">
+                    {{ register_form.hidden_tag() }}
                     <div class="input_box">
                     <span class="icon">
                         <i class='bx bx-user-circle'></i>
                     </span>
-                        <input type="text" name="firstname" required>
+                        {{ register_form.firstname }}
                         <label for="firstname">Firstname</label>
                     </div>
                     <div class="input_box">
                     <span class="icon">
                         <i class='bx bx-user-circle'></i>
                     </span>
-                        <input type="text" name="lastname" required>
+                        {{ register_form.lastname }}
                         <label for="lastname">Lastname</label>
                     </div>
                     <div class="input_box">
                     <span class="icon">
                         <i class='bx bxs-user'></i>
                     </span>
-                        <input type="text" name="username" required>
+                        {{ register_form.username }}
                         <label for="username">Username</label>
                     </div>
 
@@ -94,7 +96,7 @@ MediaConverter
                     <span class="icon">
                         <i class='bx bxs-envelope'></i>
                     </span>
-                        <input type="email" name="email" required>
+                        {{ register_form.email }}
                         <label for="email">E-mail</label>
                     </div>
 
@@ -102,7 +104,7 @@ MediaConverter
                     <span class="icon">
                         <i class='bx bxs-lock-alt'></i>
                     </span>
-                        <input type="password" name="password" required>
+                        {{ register_form.password }}
                         <label for="password">Password</label>
                     </div>
 
@@ -110,7 +112,7 @@ MediaConverter
                     <span class="icon">
                         <i class='bx bxs-lock-alt'></i>
                     </span>
-                        <input type="password" name="second_password" required>
+                        {{ register_form.repeat_password }}
                         <label for="second_password">Repeat Password</label>
                     </div>
 

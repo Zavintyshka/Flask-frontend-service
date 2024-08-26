@@ -1,8 +1,9 @@
-from wtforms import Form, StringField, EmailField, PasswordField, validators
+from flask_wtf import FlaskForm
+from wtforms import StringField, EmailField, PasswordField, validators
 from wtforms.validators import InputRequired, EqualTo
 
 
-class UserDataForm(Form):
+class UserDataForm(FlaskForm):
     firstname = StringField("Firstname:",
                             validators=[
                                 validators.Length(min=4, max=20,
@@ -24,13 +25,27 @@ class UserDataForm(Form):
     registered_at = StringField("Registered:", render_kw={"readonly": True, "style": "color:gray"})
 
 
-class ResetPasswordForm(Form):
+class ResetPasswordForm(FlaskForm):
     email = EmailField("E-mail", validators=[InputRequired()])
     username = StringField("Username", validators=[InputRequired()])
 
 
-class ChangePasswordForm(Form):
+class ChangePasswordForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
     repeated_password = PasswordField("Repeated password",
                                       validators=[InputRequired(),
                                                   EqualTo("password", message="Passwords must match.")])
+
+
+class UserLoginForm(FlaskForm):
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+
+
+class UserRegisterForm(FlaskForm):
+    firstname = StringField("Firstname", validators=[InputRequired()])
+    lastname = StringField("Lastname", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
+    email = EmailField("E-mail", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    repeat_password = PasswordField("Repeat Password", validators=[InputRequired()])

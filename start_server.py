@@ -1,7 +1,19 @@
-from flask import render_template, request
+from flask import render_template, request, Response
+from flask_wtf import CSRFProtect
 from app import create_app
+from settings import settings
 
 app = create_app()
+app.secret_key = settings.FLASK_SECRET_KEY
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+csrf = CSRFProtect(app)
+
+
+@app.after_request
+def apply_csp(response: Response):
+    if "text/html" in response.headers["Content-Type"]:
+        response.headers["Content-Security-Policy"] = "script-src 'self' cdn.jsdelivr.net"
+    return response
 
 
 @app.errorhandler(404)

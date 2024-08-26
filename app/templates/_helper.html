@@ -1,3 +1,4 @@
+<!--user-profile-->
 {% macro render_field(field) %}
 <div class="personal_data__field">
     <div class="field__title">
@@ -16,6 +17,20 @@
 </div>
 {% endmacro %}
 
+<!--reset-password-->
+{% macro render_input_field(field) %}
+<div class="input_field">
+    {{ field(**kwargs) }}
+    <label class="input_field__labels" for="email_field">{{ field.label }}</label>
+    <ul class="field__errors">
+        {% for error in field.errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endmacro %}
+
+<!--user-files-->
 {% macro render_actions(action_list) %}
 {% for action in action_list %}
 <div class="content__converting_block">
@@ -59,7 +74,7 @@
 {% endfor%}
 {% endmacro %}
 
-
+<!--user-profile-->
 {% macro render_achievement_block(achievement_list) %}
 {% for achievement in achievement_list %}
 <div class="user_achievements__wrapper">
@@ -79,14 +94,3 @@
 {% endmacro %}
 
 
-{% macro render_input_field(field) %}
-<div class="input_field">
-    {{ field(**kwargs) }}
-    <label class="input_field__labels" for="email_field">{{ field.label }}</label>
-    <ul class="field__errors">
-        {% for error in field.errors %}
-        <li>{{error}}</li>
-        {% endfor %}
-    </ul>
-</div>
-{% endmacro %}

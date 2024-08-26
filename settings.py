@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="UTF8")
+    FLASK_SECRET_KEY: str
     API_GATEWAY_URL: str
     REDIS_HOST: str
     REDIS_PORT: int

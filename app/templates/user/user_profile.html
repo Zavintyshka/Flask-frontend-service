@@ -50,11 +50,11 @@
             </div>
 
 
-
             <h1 class="content__name_avatar_block__title block_title"> {{ user.username}}'s Info</h1>
             <div class="content__user_credentials block">
                 <form method="post" class="user_block__personal_data">
                     {% from "_helper.html" import render_field %}
+                    {{ form.hidden_tag() }}
                     {{ render_field(form.firstname) }}
                     {{ render_field(form.lastname) }}
                     {{ render_field(form.username) }}
