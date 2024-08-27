@@ -1,6 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField, validators
-from wtforms.validators import InputRequired, EqualTo
+from wtforms.validators import InputRequired, EqualTo, Length, Regexp
+
+name_regexp_message = "{} must contain only Latin letters"
+username_length_message = "username length must be between 4 and 15 characters"
+username_regexp_message = "username can contain only Latin letters, numbers and underscores"
+password_length_message = "password length must be at least 10 characters"
+password_regexp_message = "password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character"
+password_equal_to_message = "Passwords must match"
 
 
 class UserDataForm(FlaskForm):
@@ -31,10 +38,16 @@ class ResetPasswordForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
-    password = PasswordField("Password", validators=[InputRequired()])
+    password = PasswordField("Password",
+                             validators=[InputRequired(message="The field is required"),
+                                         Length(min=10,
+                                                message=password_length_message),
+                                         Regexp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$",
+                                                message=password_regexp_message)
+                                         ])
     repeated_password = PasswordField("Repeated password",
                                       validators=[InputRequired(),
-                                                  EqualTo("password", message="Passwords must match.")])
+                                                  EqualTo("password", message="Passwords must match")])
 
 
 class UserLoginForm(FlaskForm):
@@ -43,9 +56,36 @@ class UserLoginForm(FlaskForm):
 
 
 class UserRegisterForm(FlaskForm):
-    firstname = StringField("Firstname", validators=[InputRequired()])
-    lastname = StringField("Lastname", validators=[InputRequired()])
-    username = StringField("Username", validators=[InputRequired()])
-    email = EmailField("E-mail", validators=[InputRequired()])
-    password = PasswordField("Password", validators=[InputRequired()])
-    repeat_password = PasswordField("Repeat Password", validators=[InputRequired()])
+    firstname = StringField("Firstname",
+                            validators=[
+                                InputRequired(message="The field is required"),
+                                Regexp(r"^[A-Za-z]+$",
+                                       message=name_regexp_message.format("firstname"))
+                            ])
+    lastname = StringField("Lastname",
+                           validators=[
+                               InputRequired(message="The field is required"),
+                               Regexp(r"^[A-Za-z]+$",
+                                      message=name_regexp_message.format("lastname"))
+                           ])
+    username = StringField("Username",
+                           validators=[InputRequired(message="The field is required"),
+                                       Length(min=4, max=15,
+                                              message=username_length_message),
+                                       Regexp(r"^\w+$",
+                                              message=username_regexp_message)
+                                       ])
+    email = EmailField("E-mail",
+                       validators=[InputRequired()])
+    password = PasswordField("Password",
+                             validators=[InputRequired(message="The field is required"),
+                                         Length(min=10,
+                                                message=password_length_message),
+                                         Regexp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$",
+                                                message=password_regexp_message)
+                                         ])
+    repeat_password = PasswordField("Repeat Password",
+                                    validators=[InputRequired(message="The field is required"),
+                                                EqualTo("password",
+                                                        message=password_equal_to_message)
+                                                ])
