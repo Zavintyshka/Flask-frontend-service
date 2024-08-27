@@ -1,6 +1,6 @@
 import requests
 from pathlib import Path
-from flask import Blueprint, render_template, request, redirect, url_for, make_response, g
+from flask import Blueprint, render_template, request, redirect, url_for, make_response, g, flash
 from ..app_forms import UserDataForm
 from ..app_forms import ChangePasswordForm, ResetPasswordForm
 from ..middleware import make_authenticated_request
@@ -110,7 +110,8 @@ def logout_view():
 @user_blueprint.get("/reset-password/")
 def reset_password():
     form = ResetPasswordForm()
-    return render_template("user/reset_password.html", **g.user, form=form)
+    return render_template("user/reset_password.html", **g.user, form=form, title="Reset Password",
+                           message={"key": ["Some test text"]})
 
 
 @user_blueprint.route("/change-password/<string:reset_token>", methods=["GET", "POST"])
@@ -128,6 +129,7 @@ def change_password(reset_token: str):
             api_url = f"{settings.API_GATEWAY_URL}/user/reset-password/{reset_token}/"
             password_data = {"password": form.password.data, "repeated_password": form.repeated_password.data}
             api_response = requests.post(api_url, json=password_data)
+            flash("Change Password_Password changed successfully", "popup_messages")
             return redirect(url_for("index.index_get"))
 
     return render_template("user/change_password.html", user_data=user_data, form=form)

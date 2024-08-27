@@ -1,5 +1,5 @@
 import requests
-from flask import Blueprint, render_template, g, request, url_for, redirect, make_response
+from flask import Blueprint, render_template, g, request, url_for, redirect, make_response, get_flashed_messages
 from ..app_forms import UserLoginForm, UserRegisterForm
 from settings import settings
 
@@ -12,6 +12,16 @@ index_blueprint = Blueprint("index", "__name__")
 def index_get():
     login_form = UserLoginForm()
     register_form = UserRegisterForm()
+
+    flash_message = get_flashed_messages(category_filter=["popup_messages"])
+    if flash_message:
+        title, message = flash_message[0].split("_")
+        return render_template("index/index.html", **g.user,
+                               login_form=login_form,
+                               register_form=register_form,
+                               title=title,
+                               message={"key": [message]})
+
     return render_template("index/index.html", **g.user,
                            login_form=login_form,
                            register_form=register_form)

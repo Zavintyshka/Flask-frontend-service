@@ -1,10 +1,4 @@
-const reset_password_button = document.querySelector(".reset_password_button")
-const popup_message = document.querySelector(".popup_message")
-
-const text = document.querySelector(".popup_message__text")
-const add_text = document.querySelector(".popup_message__add_text")
 const form = document.querySelector(".form_wrapper")
-
 form.addEventListener("submit", (event) => {
     event.preventDefault()
     const form_data = new FormData(form)
@@ -13,12 +7,13 @@ form.addEventListener("submit", (event) => {
             body: form_data
         }
     ).then(response => {
-        if (response.status === 200 || 404) {
-            text.textContent = "If the provided information is correct, a password reset instruction has been sent to the specified email address."
-            add_text.textContent = "After 10 seconds, you will be redirected to the main page."
+        if (response.status === 200) {
+            set_popup_message("If the provided information is correct, a password reset instruction has been sent to the specified email address.")
+            const button = form.querySelector(".reset_password_button")
+            button.classList.add("disabled")
         } else {
-            text.textContent = "Something went wrong. Try again later."
+            set_popup_message("Something went wrong. Please try again later.")
         }
-        popup_message.classList.add("popup_message-active")
+        show_popup_message()
     })
 })
