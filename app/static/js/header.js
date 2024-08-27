@@ -4,6 +4,12 @@ second_page_link = document.querySelector(".second_page_link")
 burger_login_button = document.querySelector("#navigation__login_button")
 
 
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 1085) {
+        burger_menu_tab.style.top = "-190px";
+    }
+})
+
 
 const switch_burger_menu = () => {
     const height_state = burger_menu_tab.style.top
@@ -17,7 +23,7 @@ const switch_burger_menu = () => {
 
 burger_menu_button.addEventListener("click", switch_burger_menu)
 second_page_link.addEventListener("click", switch_burger_menu)
-burger_login_button.addEventListener("click", ()=>{
+burger_login_button.addEventListener("click", () => {
     switch_burger_menu();
     popup_login_btn.click();
 })

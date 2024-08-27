@@ -1,12 +1,16 @@
 from flask import render_template, request, Response
 from flask_wtf import CSRFProtect
-from app import create_app
+from app import create_app, preloader_blueprint, video_blueprint
 from settings import settings
 
 app = create_app()
 app.secret_key = settings.FLASK_SECRET_KEY
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+# CSRF
 csrf = CSRFProtect(app)
+csrf.exempt(preloader_blueprint)
+csrf.exempt(video_blueprint)
 
 
 @app.after_request
