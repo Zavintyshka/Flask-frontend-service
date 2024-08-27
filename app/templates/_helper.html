@@ -93,4 +93,17 @@
 {% endfor %}
 {% endmacro %}
 
+<!--Pop up message-->
+{% macro render_popup(title, messages) %}
+<div class="popup_message_box">
+    {% if messages %}
+    <h5 class="popup_message__title"><i class='bx bxs-error-circle'></i>{{ title }}</h5>
+    <ul>
+        {% for key in messages %}
+        <li>{{ messages[key][0] }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endmacro %}
 

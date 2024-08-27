@@ -77,11 +77,11 @@ html {
     position: absolute;
     z-index: 10;
     width: 100%;
-    height: calc(var(--index) *4.5);
+    height: calc(var(--index) * 4.5);
     background-image: url("../images/transition_layer.png");
     background-size: cover;
     background-position: center;
-    top: calc(var(--index) *-1.5);
+    top: calc(var(--index) * -1.5);
     transform: translate3d(0, calc(var(--scrollTop) * -0.04), 0);
     will-change: transform;
 }
@@ -322,7 +322,7 @@ html {
 .information_card__title {
     font-size: 50px;
     text-align: center;
-    margin-top:30px;
+    margin-top: 30px;
     min-height: 120px;
 }
 
@@ -442,7 +442,7 @@ html {
 }
 
 @media screen and (max-width: 700px) {
-    .swiper-button-next, .swiper-button-prev{
+    .swiper-button-next, .swiper-button-prev {
         display: none;
     }
 }

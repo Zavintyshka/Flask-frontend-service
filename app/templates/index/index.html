@@ -7,11 +7,13 @@ MediaConverter
 {% block css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <link rel="stylesheet" href=" {{ url_for('static', filename='css/index_style.css') }}">
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/popup_style.css') }}">
 {% endblock %}
 
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/popup.js') }}" defer></script>
 {% endblock %}
 
 
@@ -27,7 +29,6 @@ MediaConverter
         <div class="layers layer_front"
              style="background-image: url({{ url_for('static', filename='images/front.png')}})"></div>
     </div>
-
     <div class="wrapper_box">
         <div class="wrapper_inner">
             <div id="close_popup_login_menu_box">
@@ -128,6 +129,9 @@ MediaConverter
             </div>
         </div>
     </div>
+    {% from "_helper.html" import render_popup %}
+    {{ render_popup(title, message) }}
+
 </div>
 <div id="second_page" style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
     <div class="swiper">
