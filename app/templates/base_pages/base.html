@@ -44,16 +44,36 @@
                 </a>
             </div>
             <nav class="navigation">
-                <a href="/">Home</a>
-                <a href="{{ url_for('index.about_page') }}">About</a>
-                <a href="#second_page">Services</a>
-                {% if user %}
-                <a href="{{ url_for('user.user_files_view', username=user.username) }}">My Files</a>
-                <a href="{{ url_for('user.user_profile_view') }}">{{user.username}}</a>
-                <a href="{{url_for('user.logout_view')}}">Logout</a>
-                {% else %}
-                <button id="popup_login_btn">Login</button>
-                {% endif %}
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('index.about_page') }}">About</a></li>
+                    <li><a href="#second_page">Services</a></li>
+                    {% if user %}
+                    <li>
+                        <a>{{user.username}}</a>
+                        <ul class="dropdown">
+                            <li><a href="{{ url_for('user.user_profile_view') }}">
+                                <i class='bx bx-user'></i>
+                                Profile</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user.user_files_view', username=user.username) }}">
+                                    <i class='bx bx-file-blank'></i>
+                                    My Files
+                                </a>
+                            </li>
+                            <li><a href="{{url_for('user.logout_view')}}">
+                                <i class='bx bx-log-out-circle'></i>
+                                Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <button id="popup_login_btn">Login</button>
+                    </li>
+                    {% endif %}
+                </ul>
             </nav>
             <button class="burger_menu_button"><i class='bx bx-menu'></i></button>
         </header>
@@ -69,8 +89,8 @@
                 </div>
                 {% if user %}
                 <div class="navigation__user_links">
-                    <a href="{{ url_for('user.user_files_view', username=user.username) }}">My Files</a>
                     <a href="{{ url_for('user.user_profile_view') }}">{{user.username}}</a>
+                    <a href="{{ url_for('user.user_files_view', username=user.username) }}">My Files</a>
                     <a href="{{url_for('user.logout_view')}}">Logout</a>
                 </div>
                 {% endif%}

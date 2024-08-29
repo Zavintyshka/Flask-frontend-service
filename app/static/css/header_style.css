@@ -26,28 +26,28 @@ header {
     display: none;
 }
 
-.header_wrapper{
+.header_wrapper {
     position: relative;
 }
 
-.burger_menu_tab{
+.burger_menu_tab {
     padding-bottom: 15px;
     margin-top: 60px;
     z-index: 14;
     position: fixed;
     top: -190px;
-    left:0;
+    left: 0;
     width: 100%;
     background-color: black;
     transition: all 650ms cubic-bezier(0.285, 0.020, 0.165, 0.990);
 }
 
-.burger_menu_tab__navigation{
+.burger_menu_tab__navigation {
     display: flex;
     height: 175px;
 }
 
-.navigation__site_links, .navigation__user_links{
+.navigation__site_links, .navigation__user_links {
     margin-top: 20px;
     margin-left: 50px;
     display: flex;
@@ -57,14 +57,13 @@ header {
 }
 
 
-
-.burger_menu_tab__navigation a:hover, #navigation__login_button:hover{
+.burger_menu_tab__navigation a:hover, #navigation__login_button:hover {
     color: var(--main-color);
 }
 
 
-#navigation__login_button{
-    border:none;
+#navigation__login_button {
+    border: none;
     background-color: transparent;
     color: white;
     font-size: 24px;
@@ -77,32 +76,81 @@ header {
     z-index: 55;
 }
 
-.navigation a, #popup_login_btn {
-    font-size: 14px;
-    margin-left: 30px;
+.navigation ul {
+    list-style: none;
 }
 
-.navigation a, .burger_menu_tab__navigation a {
+.navigation ul li {
+    display: inline-block;
+    position: relative;
+}
+
+
+.navigation ul li a {
+    display: inline;
+    position: relative;
+    margin: 0 15px;
+    padding-bottom: 17px;
+}
+
+.navigation ul li ul.dropdown {
+    background-color: black;
+    width: 100%;
+    position: absolute;
+    top: 35px;
+    display: none;
+}
+
+ul.dropdown li {
+    margin: 10px 0 10px 10px;
+}
+
+ul.dropdown li a {
+    position: relative;
+}
+
+.bx-user, .bx-log-out-circle, .bx-file-blank {
+    position: absolute;
+    top: 0;
+    left: -20px;
+}
+
+
+.navigation ul li:hover ul.dropdown {
+    display: block;
+}
+
+.navigation ul li ul.dropdown li {
+    display: block;
+    background: black;
+}
+
+
+.navigation a, #popup_login_btn {
+    font-size: 16px;
+}
+
+.navigation ul li a, .burger_menu_tab__navigation a {
     color: white;
     text-decoration: none;
     position: relative;
 }
 
-.navigation a::after{
+.navigation a::after {
     content: "";
     position: absolute;
     background-color: var(--main-color);
     right: 0;
     width: 100%;
     height: 2px;
-    bottom: -6px;
+    bottom: 10px;
     transform: scaleX(0);
     transition: all 300ms cubic-bezier(0.370, 0.010, 0.375, 1.010);
     transform-origin: left;
 }
 
 
-.navigation a:hover::after{
+.navigation a:hover::after {
     transform: scaleX(100%);
 }
 
@@ -135,7 +183,7 @@ header {
 }
 
 
-.logo{
+.logo {
     height: 100%;
 }
 
