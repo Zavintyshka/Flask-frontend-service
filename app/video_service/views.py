@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, g, request, redirect, url_for, mak
 from redis_event import delete_user_preload_folder
 from ..middleware import make_authenticated_request
 from ..redis_client import redis_connection
+from ..logger import flask_logger
 from settings import settings, TTL, PRELOAD_FOLDER
 
 __all__ = ["video_blueprint"]
@@ -24,6 +25,7 @@ def video_editor_get():
         session_id = str(uuid4())
         response = make_response(render_template("service_pages/video_page.html", **g.user))
         response.set_cookie("user_session_id", session_id, max_age=TTL)
+        flask_logger.info(f"A session has been created for the user with {session_id=}")
         return response
     else:
         file_redis_data = redis_connection.get_record(user_session_id)
@@ -60,5 +62,6 @@ def video_editor_post():
     if response.ok:
         delete_user_preload_folder(user_session_id)
         redis_connection.delete_record(user_session_id)
-
+        flask_logger.info(
+            f"The temporary file {file_data["file_uuid"]} was deleted as the user processed it")
     return "201"

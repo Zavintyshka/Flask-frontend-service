@@ -1,6 +1,7 @@
 import shutil
 from pathlib import Path
 from app.redis_client import RedisConnection
+from app.logger import flask_logger
 from settings import PRELOAD_FOLDER, settings
 
 redis_event_client = RedisConnection(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
@@ -9,6 +10,8 @@ redis_event_client = RedisConnection(host=settings.REDIS_HOST, port=settings.RED
 def handle_expire_key(message):
     user_session_id = message["data"]
     delete_user_preload_folder(user_session_id)
+    flask_logger.info(
+        f"The storage time for files associated with {user_session_id=} has expired. All temporary files have been deleted.")
 
 
 def main():

@@ -4,6 +4,7 @@ from pathlib import Path
 from flask import Blueprint, request, Response, send_from_directory
 from settings import PRELOAD_FOLDER, TTL
 from .redis_client import redis_connection
+from .logger import flask_logger
 
 preloader_blueprint = Blueprint("preloader", __name__)
 
@@ -25,6 +26,8 @@ def preload_user_file():
     with file_path.open("wb") as file_obj:
         file.save(file_obj)
     data = {"filename": str(filename), "file_uuid": filename_uuid, "service": "video"}
+    flask_logger.info(
+        f"The preloader uploaded a file {filename_uuid} for the user with {user_session_id=}")
     redis_connection.make_record(user_session_id, data=data, ttl=TTL)
     return Response(status=201)
 
