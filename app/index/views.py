@@ -1,6 +1,7 @@
 import requests
 from flask import Blueprint, render_template, g, request, url_for, redirect, make_response, get_flashed_messages
 from ..app_forms import UserLoginForm, UserRegisterForm
+from ..logger import flask_logger
 from settings import settings
 
 __all__ = ["index_blueprint"]
@@ -70,11 +71,18 @@ def index_post():
             jwt_token = response.json()["access_token"]
             cookie_response = make_response(redirect(url_for("index.index_get")))
             cookie_response.set_cookie('jwt_token', jwt_token, httponly=False, samesite="Lax")
+
+            username = login_form.username.data
+            ip = request.remote_addr
+            flask_logger.info(f"User logged in with {username=} from IP: {ip}")
             return cookie_response
 
         case 201:
             message = {"Reg": ["success registration"]}
             title = "Registration"
+            email = register_form.email.data
+            username = register_form.username.data
+            flask_logger.info(f"User created with {email=} and {username=}")
 
         case 403:
             message = {"Reg": ["incorrect username or password"]}

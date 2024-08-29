@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, make_r
 from ..app_forms import UserDataForm
 from ..app_forms import ChangePasswordForm, ResetPasswordForm
 from ..middleware import make_authenticated_request
+from ..logger import flask_logger
 from settings import settings
 from datetime import datetime
 
@@ -130,6 +131,8 @@ def change_password(reset_token: str):
             password_data = {"password": form.password.data, "repeated_password": form.repeated_password.data}
             api_response = requests.post(api_url, json=password_data)
             flash("Change Password_Password changed successfully", "popup_messages")
+            flask_logger.info(
+                f"Password changed for user with email={user_data["email"]} from IP address: {request.remote_addr}")
             return redirect(url_for("index.index_get"))
 
     return render_template("user/change_password.html", user_data=user_data, form=form)
