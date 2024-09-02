@@ -48,6 +48,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="{{ url_for('index.about_page') }}">About</a></li>
                     <li><a href="#second_page">Services</a></li>
+                    <li><a href="{{ url_for('index.status_page') }}">Status</a></li>
                     {% if user %}
                     <li>
                         <a>{{user.username}}</a>

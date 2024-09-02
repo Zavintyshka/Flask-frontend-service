@@ -91,6 +91,7 @@
     </div>
 </div>
 {% endfor %}
+
 {% endmacro %}
 
 <!--Pop up message-->
@@ -107,3 +108,17 @@
 </div>
 {% endmacro %}
 
+{% macro render_status(status) %}
+{% for component in status %}
+<div class="content__component_block">
+    {% if component.status == "serving" %}
+    <div style="background-color: green" class="component_block__status_dot">
+    </div>
+    {% elif component.status == "not_serving" %}
+    <div style="background-color: red" class="component_block__status_dot">
+    </div>
+    {% endif %}
+    <p class="component_block__component_name">{{ component.component_name }}</p>
+</div>
+{% endfor%}
+{% endmacro%}

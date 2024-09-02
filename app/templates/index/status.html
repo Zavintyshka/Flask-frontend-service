@@ -1,0 +1,20 @@
+{% extends "base_pages/base.html" %}
+
+{% block title %}Status{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/status_style.css') }}">
+{% endblock%}
+
+
+{% block content %}
+<div class="wrapper" style="background-image: url({{ url_for('static', filename='images/background.png')}})">
+    <div class="content">
+        <h1 class="content__title">Status</h1>
+        {% from "_helper.html" import render_status %}
+        {{ render_status(status) }}
+    </div>
+</div>
+{% endblock %}
+

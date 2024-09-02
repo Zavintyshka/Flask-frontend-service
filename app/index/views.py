@@ -102,3 +102,10 @@ def index_post():
 @index_blueprint.get("/about")
 def about_page():
     return render_template("index/about.html")
+
+
+@index_blueprint.get("/status/")
+def status_page():
+    url = settings.API_GATEWAY_URL + "/status/"
+    response = requests.get(url).json()
+    return render_template("index/status.html", **g.user, status=response)
