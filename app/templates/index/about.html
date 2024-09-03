@@ -1,6 +1,95 @@
-{% extends "base_pages/standard_page.html" %}
+{% extends "base_pages/base.html" %}
 
-{% block message %}
-<!--Our Media Converter Service provides a comprehensive solution for all your multimedia conversion needs. With support for a wide range of formats, our service can perform various operations on audio, video, and image files. Whether you need to convert video files to different resolutions, extract audio from video, or transform image formats, our service delivers high-quality results with ease and efficiency. Experience seamless conversions with our user-friendly interface, ensuring that your media files are always in the right format for your projects and devices.-->
-About
+{% block title %}About{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about_style.css') }}">
+{% endblock%}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/about.js') }}" defer></script>
 {% endblock %}
+
+
+{% block content %}
+<div class="wrapper" style="background-image: url({{ url_for('static', filename='images/background.png')}})">
+    <div class="content">
+        <h1 class="content__title">About MediaConverterApp</h1>
+        <div class="main_text">
+            <p>Our service is designed to make working with your media files easy and convenient. It supports processing
+                videos, images, and audio files, providing all the necessary tools in one place. Our application also
+                offers the ability to create a personal account where you can store all your file-related activities and
+                download them at any time.</p>
+            <p>Additionally, we have an achievement system that makes working with files
+                even more engaging. Try to complete all the achievements and discover new possibilities!</p>
+        </div>
+        <div class="video_block service-block">
+            <h1 class="services_title">Our Services</h1>
+            <div class="video_block__cards cards-block">
+                <div class="image_card show"
+                     style="background-image: url({{ url_for('static', filename='images/ada.jpg')}})">
+                    <h1 class="card_title">Video Service</h1>
+                </div>
+                <div class="text_card"
+                     style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
+                    <h1 class="card_title text">Video Service</h1>
+                    <div class="text_card__text_block">
+                        <p>Our service provides a powerful and easy-to-use platform for processing video files. Whether
+                            you need to trim a video to capture the perfect moment or convert it into various audio
+                            formats like WAV, MP3, or OGG, our tool has you covered. With just a few clicks, you can cut
+                            videos to your desired length and transform them into the format that best suits your needs.
+                            Whether you're a content creator, musician, or simply someone who loves to work with media
+                            files, our service offers the flexibility and efficiency you need to get the job done
+                            quickly and effectively.</p>
+                    </div>
+                    <a class="service_links" href="{{ url_for('video.video_editor_get') }}">to Video Editor</a>
+                </div>
+            </div>
+
+            <div class="video_block__cards cards-block">
+                <div class="image_card show"
+                     style="background-image: url({{ url_for('static', filename='images/leon.jpeg')}})">
+                    <h1 class="card_title">Image Service</h1>
+                </div>
+                <div class="text_card"
+                     style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
+                    <h1 class="card_title text">Image Service</h1>
+                    <div class="text_card__text_block">
+                        <p>Our service provides a powerful and easy-to-use platform for processing video files. Whether
+                            you need to trim a video to capture the perfect moment or convert it into various audio
+                            formats like WAV, MP3, or OGG, our tool has you covered. With just a few clicks, you can cut
+                            videos to your desired length and transform them into the format that best suits your needs.
+                            Whether you're a content creator, musician, or simply someone who loves to work with media
+                            files, our service offers the flexibility and efficiency you need to get the job done
+                            quickly and effectively.</p>
+                    </div>
+                    <a class="service_links" href="{{ url_for('video.video_editor_get') }}">to Image Editor</a>
+                </div>
+            </div>
+
+            <div class="video_block__cards cards-block">
+                <div class="image_card show"
+                     style="background-image: url({{ url_for('static', filename='images/ashley.jpg')}})">
+                    <h1 class="card_title">Audio Service</h1>
+                </div>
+                <div class="text_card"
+                     style="background-image: url({{ url_for('static', filename='images/second.jpg')}})">
+                    <h1 class="card_title text">Audio Service</h1>
+                    <div class="text_card__text_block">
+                        <p>Our service provides a powerful and easy-to-use platform for processing video files. Whether
+                            you need to trim a video to capture the perfect moment or convert it into various audio
+                            formats like WAV, MP3, or OGG, our tool has you covered. With just a few clicks, you can cut
+                            videos to your desired length and transform them into the format that best suits your needs.
+                            Whether you're a content creator, musician, or simply someone who loves to work with media
+                            files, our service offers the flexibility and efficiency you need to get the job done
+                            quickly and effectively.</p>
+                    </div>
+                    <a class="service_links" href="{{ url_for('video.video_editor_get') }}">to Audio Editor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
