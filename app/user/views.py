@@ -18,6 +18,9 @@ def user_profile_view():
     if not user_data:
         return redirect(url_for("user.not_authorized_view"))
 
+    url = settings.API_GATEWAY_URL + f"/stats/{user_data["id"]}"
+    total = requests.get(url).json()["total"]
+
     user_data["registered_at"] = beautify_date(user_data["registered_at"])
     filled_form = UserDataForm(**user_data)
 
@@ -44,6 +47,7 @@ def user_profile_view():
             return render_template("user/user_profile.html",
                                    form=filled_form,
                                    user=user_data,
+                                   user_total=total,
                                    achievement_list_video=achievement_list_video,
                                    achievement_list_image=achievement_list_image,
                                    achievement_list_audio=achievement_list_audio)

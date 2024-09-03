@@ -21,6 +21,16 @@ def middleware(app):
         else:
             g.user = {"user": None}
 
+    @app.before_request
+    def get_total():
+        url = settings.API_GATEWAY_URL + "/stats/"
+        total = requests.get(url).json()["total"]
+        g.total = total
+
+    @app.context_processor
+    def inject_global_variable():
+        return dict(total=g.total)
+
 
 def make_authenticated_request(method: str, url: str, jwt_token: str, **kwargs) -> requests.Response:
     match method.upper():
