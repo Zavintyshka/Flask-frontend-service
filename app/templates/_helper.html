@@ -87,7 +87,11 @@
     </div>
     <div class="user_achievements__description">
         <h6>{{ achievement.name }}</h6>
-        <p>{{ achievement.description }}</p>
+        <p class="user_achievements__description__text">{{ achievement.description }}</p>
+        <div class="achievement_progress_bar">
+            <div class="achievement_progress_bar__progress"></div>
+        </div>
+        <p class="user_achievements__description__progress">{{achievement.progress}}/{{achievement.target}}</p>
     </div>
 </div>
 {% endfor %}
