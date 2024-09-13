@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  flask-frontend:
+    container_name: flask-frontend-site
+    depends_on:
+      - api-gateway
+      - redis-preloader
+      - postgres-db
+    image: flask-frontend:1.0
+    volumes:
+      - ..:/source
+    env_file:
+      - ../.env
+    ports:
+      - "5050:5050"
+    networks:
+      - mediaconverterapp
+    command: [ "flask", "--app", "start_server:app", "run", "-h", "0.0.0.0", "-p", "5050" ]
+
+  api-gateway:
+    container_name: api-gateway-backend
+    depends_on:
+      - postgres-db
+    image: api-backend:1.1
+    volumes:
+      - /Users/vadimsosnin/PycharmProjects/APIGateway:/source/app
+    env_file:
+      - api.env
+    networks:
+      - mediaconverterapp
+    working_dir: /source/app
+    command: ["../venv_api/bin/uvicorn", "api_gateway.main:app", "--host", "0.0.0.0", "--port", "3000"]
+
+
+  redis-preloader:
+    container_name: redis-preloader
+    image: redis-preloader:0.1
+    networks:
+      - mediaconverterapp
+
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres_db:1.0
+
+networks:
+  mediaconverterapp:
+    driver: bridge

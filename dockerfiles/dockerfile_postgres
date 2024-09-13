@@ -1,0 +1,9 @@
+FROM postgres:16.4-alpine3.20
+LABEL authors="Vadim Sosnin"
+ARG POSTGRES_PASSWORD
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_DB=auth
+
+VOLUME /var/lib/postgresql/data
+
